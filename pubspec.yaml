@@ -1,0 +1,32 @@
+name: calendar_picker_ghe
+description: A lightweight, customizable date picker package for Flutter that supports
+  **Gregorian Calendar**
+  **Hijri  Calendar**
+  **Ethiopian Calendar**
+version: 1.0.0
+homepage: https://github.com/HalidAwell/calendar_picker_ghe
+repository: https://github.com/HalidAwell/calendar_picker_ghe
+issue_tracker: https://github.com/HalidAwell/calendar_picker_ghe/issues
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  ethiopian_datetime: ^1.0.3 # For Ethiopian calendar conversion
+  hijri: ^3.0.0  # For Hijri calendar conversion
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^3.0.0 # Optional: for linting best practices
+
+flutter:
+  uses-material-design: true
+
+topics:
+  - calendar-converter
+  - gregorian-date-picker
+  - hijri-date-picker
+  - ethiopian-date-picker
