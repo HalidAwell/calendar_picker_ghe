@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
 
   CalendarType selectedCalendarType = CalendarType.gregorian;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,6 +80,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text('Pick Hijri'),
                 ),
+
                 /// this is for ethiopian calender picker example.
                 ElevatedButton(
                   onPressed: () async {
@@ -124,5 +124,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 }

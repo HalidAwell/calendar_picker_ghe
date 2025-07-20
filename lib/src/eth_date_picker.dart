@@ -2,7 +2,6 @@ import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:calendar_picker_ghe/src/utils/eth_calender_table.dart';
 import 'package:flutter/material.dart';
 
-
 Future<Ethiopian?> EthiopianDatePicker({
   required BuildContext context,
   required int initialYear,
@@ -43,9 +42,7 @@ Future<Ethiopian?> EthiopianDatePicker({
                       ),
                       const SizedBox(width: 8),
                       ElevatedButton(
-                        onPressed: () => Navigator.pop(context, tempSelected
-                        ),
-
+                        onPressed: () => Navigator.pop(context, tempSelected),
                         child: const Text("እሺ"),
                       ),
                     ],

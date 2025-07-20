@@ -6,17 +6,17 @@ A lightweight, customizable Flutter date picker supporting:
 - 🌙 **Hijri (Islamic) Calendar**
 - 🗿 **Ethiopian Calendar**
 
-Choose any calendar with a **unified API** and a beautiful, fully custom dialog.
+Easily switch between calendars using a **unified API** with a clean, customizable dialog interface.
 
 ---
 
 ## ✨ Features
 
 - 🔁 Easy month/year navigation via dropdowns and arrows
-- ✅ Today’s date and selected date are clearly highlighted
-- 📆 Configurable year range (`firstYear`, `lastYear`) and default year (`initialYear`)
-- 🎯 One method to rule them all: `showUnifiedDatePicker(...)`
-- 🌍 Clean, extensible codebase for custom calendar integrations
+- ✅ Highlights for today’s date and selected date
+- 📆 Configurable year range: `firstYear`, `lastYear`, and `initialYear`
+- 🎯 Unified function: `showUnifiedDatePicker(...)`
+- 🌍 Clean, extensible codebase for integrating other calendars
 
 ---
 
@@ -46,37 +46,27 @@ Choose any calendar with a **unified API** and a beautiful, fully custom dialog.
 
 ### 📦 Installation
 
-Run this command:
-
-With Flutter (open flutter teminal and run):
+Run this command in your Flutter terminal:
 
 ```bash
- flutter pub add calendar_picker_ghe
- ```
-
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
-
+flutter pub add calendar_picker_ghe
+```
+This will add the following line to your pubspec.yaml and fetch the package:
 
 ```yaml
 dependencies:
-  calendar_picker_ghe: 1.0.0
+calendar_picker_ghe: ^1.0.0
 ```
-Import it
+### 📥 Import the Package
+In your Dart file:
 
-Now in your Dart code, you can use:
-```dart
+```
 import 'package:calendar_picker_ghe/calendar_picker.dart';
 ```
-Or,
+Alternatively, add the dependency manually in pubspec.yaml and run flutter pub get.
 
-Add the package to your `pubspec.yaml`: and run Pub get
-
-```yaml
-dependencies:
-  calendar_picker_ghe: 1.0.0 
-```    
-## 🧪 Usage
-
+### 🧪 Usage
+<pre lang="markdown"> 
 ```dart
 import 'package:calendar_picker_ghe/calendar_picker.dart';
 
@@ -87,26 +77,34 @@ final pickedDate = await showUnifiedDatePicker(
   firstYear: 2000,
   lastYear: 2030,
 );
-```
-Here the showUnifiedDatePicker method expects you to select calenderType which can be
-ethiopian, hijri or gregorian according to your choice. And the other variables are
-initialYear, firstYear and lastYear which corresponds to range of year you want to see
-and the initial of when dropdown is shown. you can select, forexample, the initialYear
-to be today's year which can be done by setting
-```dart
-initialYear: DateTime.now(), // for gregorian choice 
-```
-For ethiopian and hijri calender choice you can access todays year through
-calendar_converter.dart as follows
-```dart
-initialYear: Hijri.now(), // for hijri choice and
 
-initialYear: Ethiopian.now(), // for ethiopian calendar choice
 ```
-## 📝 License
+</pre>
+The calendarType can be one of: CalendarType.gregorian, CalendarType.hijri, or CalendarType.ethiopian.
+
+initialYear, firstYear, and lastYear define the visible year range and default year in the dropdown.
+
+To set the initialYear to today’s year:
+
+<pre lang="markdown"> 
+```dart
+initialYear: DateTime.now().year, // Gregorian calendar
+```
+</pre>
+For Hijri and Ethiopian calendars, use:
+<pre lang="markdown"> 
+```dart
+
+initialYear: Hijri.now().year,     // Hijri calendar
+initialYear: Ethiopian.now().year, // Ethiopian calendar
+```
+</pre>
+(Requires appropriate date converter utilities from calendar_converter.dart)
+
+### 📝 License
 This project is licensed under the MIT License.
 
-## 📬 Contact
+### 📬 Contact
 For questions, feedback, or contributions:
 
-       📧 Email: halidawell00@gmail.com
+### 📧 Email: halidawell00@gmail.com

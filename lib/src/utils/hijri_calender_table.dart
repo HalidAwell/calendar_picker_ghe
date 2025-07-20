@@ -19,10 +19,9 @@ class CalendarTableHijri extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 1. Get 1st of Hijri month → Gregorian
-    final tempGregorian = Hijri(
-        year: selectedDate.year,
-        month: selectedDate.month,
-        day: 1).toGreg();
+    final tempGregorian =
+        Hijri(year: selectedDate.year, month: selectedDate.month, day: 1)
+            .toGreg();
 
     final hijriStart = Hijri.fromDate(tempGregorian);
     final daysInMonth = hijriStart.monthLength();
@@ -49,25 +48,29 @@ class CalendarTableHijri extends StatelessWidget {
         day: day,
       );
 
-      final isDisabled = selectedDate.year < firstYear || selectedDate.year > lastYear;
+      final isDisabled =
+          selectedDate.year < firstYear || selectedDate.year > lastYear;
 
       dayCells.add(
         GestureDetector(
           onTap: isDisabled
               ? null
               : () => onDateSelected(
-            Hijri(year: selectedDate.year, month: selectedDate.month, day: day),
-          ),
+                    Hijri(
+                        year: selectedDate.year,
+                        month: selectedDate.month,
+                        day: day),
+                  ),
           child: Container(
             margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
                   : isSelected
-                  ? Colors.teal.shade100
-                  : hijriDate.isWeekend()
-                  ? Colors.orange[100]
-                  : null,
+                      ? Colors.teal.shade100
+                      : hijriDate.isWeekend()
+                          ? Colors.orange[100]
+                          : null,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
                 color: isToday || isSelected ? Colors.teal : Colors.transparent,
@@ -82,8 +85,8 @@ class CalendarTableHijri extends StatelessWidget {
                 color: isDisabled
                     ? Colors.grey
                     : isToday
-                    ? Colors.white
-                    : Colors.black,
+                        ? Colors.white
+                        : Colors.black,
               ),
             ),
           ),
@@ -101,7 +104,8 @@ class CalendarTableHijri extends StatelessWidget {
         const SizedBox(height: 12),
         _buildMonthNavigation(),
         const SizedBox(height: 12),
-        _buildWeekdayRow(['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت']),
+        _buildWeekdayRow(
+            ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت']),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
@@ -119,39 +123,52 @@ class CalendarTableHijri extends StatelessWidget {
 
   Widget _buildTodayHeader(Hijri today) {
     return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.only(left:10, top:2, right: 10, bottom: 12),
-        decoration: BoxDecoration(
-          color: Colors.teal[500],
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child:Column(children: [
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 10, top: 2, right: 10, bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.teal[500],
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("منتقي تاريخ التقويم الهجري", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white, fontStyle: FontStyle.italic)),
+              const Text("منتقي تاريخ التقويم الهجري",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic)),
             ],
           ),
           const SizedBox(height: 10),
-      GestureDetector(
-        onTap: () {
-          if (selectedDate.month != today.month || selectedDate.year != today.year) {
-            onDateSelected(today);
-          }
-        },
-        child: Row(
-            children: [
-              const Icon(Icons.today, size: 18, color: Colors.white),
-              const SizedBox(width: 6),
-              const Text("اليوم:", style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Colors.white)),
-              const SizedBox(width: 6),
-              Text(
-                today.toString(),
-                style: const TextStyle(fontSize: 15, color: Colors.white),
-              ),
-            ],
-          ),),
-        ],),
+          GestureDetector(
+            onTap: () {
+              if (selectedDate.month != today.month ||
+                  selectedDate.year != today.year) {
+                onDateSelected(today);
+              }
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.today, size: 18, color: Colors.white),
+                const SizedBox(width: 6),
+                const Text("اليوم:",
+                    style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                const SizedBox(width: 6),
+                Text(
+                  today.toString(),
+                  style: const TextStyle(fontSize: 15, color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -181,10 +198,9 @@ class CalendarTableHijri extends StatelessWidget {
   }
 
   Widget _buildMonthNavigation() {
-
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-          (index) => firstYear + index,
+      (index) => firstYear + index,
     );
 
     return Row(
@@ -193,7 +209,8 @@ class CalendarTableHijri extends StatelessWidget {
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
         const SizedBox(width: 4),
-        Text(hijriMonthNames[selectedDate.month], style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+        Text(hijriMonthNames[selectedDate.month],
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
         const SizedBox(width: 6),
         SizedBox(
           width: 70,
@@ -204,7 +221,8 @@ class CalendarTableHijri extends StatelessWidget {
             items: yearRange,
             onChanged: (year) {
               if (year != null) {
-                onDateSelected(Hijri(year: year, month: selectedDate.month, day:1));
+                onDateSelected(
+                    Hijri(year: year, month: selectedDate.month, day: 1));
               }
             },
           ),

@@ -8,7 +8,6 @@ class Hijri {
   late int month;
   late int day;
 
-
   // Constructor to initialize Hijri date
   Hijri({required this.year, required this.month, required this.day});
 
@@ -56,12 +55,13 @@ class Hijri {
       : year = HijriCalendar.fromDate(date).hYear,
         month = HijriCalendar.fromDate(date).hMonth,
         day = HijriCalendar.fromDate(date).hDay;
+
   /// Returns number of days in the month for this instance.
   int monthLength() {
     final hijriCal = HijriCalendar()
       ..hYear = year
       ..hMonth = month;
-    return hijriCal.getDaysInMonth(year,month);
+    return hijriCal.getDaysInMonth(year, month);
   }
 
   /*// Converts Hijri date to a string in the format 'dd/mm/yyyy (Hijri)'.
@@ -72,13 +72,12 @@ class Hijri {
 
   @override
   String toString() {
-    final monthName = (month >= 1 && month <= 12) ? hijriMonthNames[month] : 'غير معروف';
+    final monthName =
+        (month >= 1 && month <= 12) ? hijriMonthNames[month] : 'غير معروف';
     return '$monthName $day, $year هـ';
   }
+
   bool isWeekend() => toGreg().weekday >= 6;
-
-
-
 }
 
 class Ethiopian {
@@ -124,7 +123,8 @@ class Ethiopian {
   /// String output for readability
   @override
   String toString() {
-    final monthName = (month >= 1 && month <= 13) ? ethiopianMonthNames[month] : 'ወሩ አይታወቅም';
+    final monthName =
+        (month >= 1 && month <= 13) ? ethiopianMonthNames[month] : 'ወሩ አይታወቅም';
     return '$monthName $day, $year ዓ.ም.';
   }
 
@@ -150,6 +150,4 @@ class Ethiopian {
   }
 
   bool isWeekend() => toGreg().weekday >= 6;
-
-
 }

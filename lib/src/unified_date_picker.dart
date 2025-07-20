@@ -15,21 +15,21 @@ Future<dynamic> showUnifiedDatePicker({
     case CalendarType.gregorian:
       return GregorianDatePicker(
         context: context,
-        initialYear:initialYear,
+        initialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
       );
     case CalendarType.hijri:
       return HijriDatePicker(
         context: context,
-        intialYear:initialYear,
+        intialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
       );
     case CalendarType.ethiopian:
       return EthiopianDatePicker(
         context: context,
-        initialYear:initialYear,
+        initialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
       );

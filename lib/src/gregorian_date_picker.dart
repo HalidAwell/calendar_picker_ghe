@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './utils/calendar_table.dart';
 
-
 Future<DateTime?> GregorianDatePicker({
   required BuildContext context,
   required int initialYear,

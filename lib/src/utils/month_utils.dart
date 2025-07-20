@@ -19,14 +19,16 @@ Widget buildDropdown<T>({
       dropdownColor: Colors.white,
       hint: Text(
         hint,
-        style: const TextStyle(fontSize: 10, color: Colors.grey, fontStyle: FontStyle.italic),
+        style: const TextStyle(
+            fontSize: 10, color: Colors.grey, fontStyle: FontStyle.italic),
       ),
       items: items.map((item) {
         return DropdownMenuItem<T>(
           value: item,
           child: Text(
             '$item',
-            style: const TextStyle(fontSize: 11, color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                fontSize: 11, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         );
       }).toList(),
@@ -34,6 +36,7 @@ Widget buildDropdown<T>({
     ),
   );
 }
+
 const List<String> monthNames = [
   '', // 0-index unused
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -41,9 +44,19 @@ const List<String> monthNames = [
 ];
 const List<String> ethiopianMonthNames = [
   '',
-  'መስከረም', 'ጥቅምት', 'ኅዳር', 'ታህሳስ',
-  'ጥር', 'የካቲት', 'መጋቢት', 'ሚያዚያ',
-  'ግንቦት', 'ሰኔ', 'ሀምሌ', 'ነሐሴ', 'ጳጉሜን'
+  'መስከረም',
+  'ጥቅምት',
+  'ኅዳር',
+  'ታህሳስ',
+  'ጥር',
+  'የካቲት',
+  'መጋቢት',
+  'ሚያዚያ',
+  'ግንቦት',
+  'ሰኔ',
+  'ሀምሌ',
+  'ነሐሴ',
+  'ጳጉሜን'
 ];
 
 const List<String> hijriMonthNames = [

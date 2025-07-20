@@ -43,7 +43,9 @@ class CalendarTableEthiopian extends StatelessWidget {
 
       final isSelected = day == selectedDate.day;
       final eth = Ethiopian(
-         selectedDate.year, selectedDate.month,  day,
+        selectedDate.year,
+        selectedDate.month,
+        day,
       );
 
       final isDisabled =
@@ -54,18 +56,18 @@ class CalendarTableEthiopian extends StatelessWidget {
           onTap: isDisabled
               ? null
               : () => onDateSelected(
-            Ethiopian(selectedDate.year, selectedDate.month, day),
-          ),
+                    Ethiopian(selectedDate.year, selectedDate.month, day),
+                  ),
           child: Container(
             margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
                   : isSelected
-                  ? Colors.teal.shade100
-                  : eth.isWeekend()
-                  ? Colors.orange[100]
-                  : null,
+                      ? Colors.teal.shade100
+                      : eth.isWeekend()
+                          ? Colors.orange[100]
+                          : null,
               borderRadius: BorderRadius.circular(6),
               border: Border.all(
                 color: isToday || isSelected ? Colors.teal : Colors.transparent,
@@ -80,8 +82,8 @@ class CalendarTableEthiopian extends StatelessWidget {
                 color: isDisabled
                     ? Colors.grey
                     : isToday
-                    ? Colors.white
-                    : Colors.black,
+                        ? Colors.white
+                        : Colors.black,
               ),
             ),
           ),
@@ -117,47 +119,52 @@ class CalendarTableEthiopian extends StatelessWidget {
 
   Widget _buildTodayHeader(Ethiopian today) {
     return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.only(left:10, top:2, right: 10, bottom: 12),
-        decoration: BoxDecoration(
-          color: Colors.teal[500],
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(children: [
+      width: double.infinity,
+      padding: const EdgeInsets.only(left: 10, top: 2, right: 10, bottom: 12),
+      decoration: BoxDecoration(
+        color: Colors.teal[500],
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Column(
+        children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("የኢትዮጵያ የቀን መምረጫ", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white, )),
+              const Text("የኢትዮጵያ የቀን መምረጫ",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ],
           ),
           const SizedBox(height: 5),
-      GestureDetector(
-        onTap: () {
-          if (selectedDate.month != today.month ||
-              selectedDate.year != today.year) {
-            onDateSelected(today);
-          }
-        },
-        child:Row(
-            children: [
-              const Icon(Icons.today, size: 18, color: Colors.white),
-              const SizedBox(width: 6),
-              const Text("ዛሬ:",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              const SizedBox(width: 6),
-              Text(
-                today.toString(),
-                style: const TextStyle(fontSize: 13, color: Colors.white),
-              ),
-            ],
-          ),),
+          GestureDetector(
+            onTap: () {
+              if (selectedDate.month != today.month ||
+                  selectedDate.year != today.year) {
+                onDateSelected(today);
+              }
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.today, size: 18, color: Colors.white),
+                const SizedBox(width: 6),
+                const Text("ዛሬ:",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                const SizedBox(width: 6),
+                Text(
+                  today.toString(),
+                  style: const TextStyle(fontSize: 13, color: Colors.white),
+                ),
+              ],
+            ),
+          ),
           const SizedBox(height: 5),
         ],
-
-
       ),
     );
   }
@@ -189,7 +196,7 @@ class CalendarTableEthiopian extends StatelessWidget {
 
   Widget _buildMonthNavigation() {
     List<int> yearRange =
-    List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
+        List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
