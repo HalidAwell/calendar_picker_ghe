@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'calendar_picker.dart'; // Import your unified calendar picker module
-import 'src/unified_date_picker.dart'; // Main date picker logic
+import 'package:window_size/window_size.dart';
+import 'dart:io';
+void main() async{
 
-void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+
+    setWindowTitle('My Ethiopian Calendar App');
+    setWindowMinSize(const Size(420, 850));
+    setWindowMaxSize(const Size(461, 850));
+    setWindowFrame(const Rect.fromLTWH(300, 100, 420, 850)); // Set initial position and size
+  }
   runApp(const MyApp()); // Entry point of the app
 }
 
@@ -30,9 +40,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   /// These variables store the selected date from each calendar type.
-  dynamic selectedGDate; // Gregorian calendar
-  dynamic selectedHDate; // Hijri calendar
-  dynamic selectedEDate; // Ethiopian calendar
+  DateTime? selectedGDate;
+  Hijri? selectedHDate;
+  Ethiopian? selectedEDate;
 
   // Selected calendar type to be passed to the unified date picker
   CalendarType selectedCalendarType = CalendarType.gregorian;
@@ -46,10 +56,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Row of buttons to pick different calendar types
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+
                 ElevatedButton(
                   onPressed: () async {
                     /// Show Gregorian date picker
@@ -107,8 +114,8 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: const Text('Pick Ethiopian'),
                 ),
-              ],
-            ),
+
+
 
             const SizedBox(height: 20),
 

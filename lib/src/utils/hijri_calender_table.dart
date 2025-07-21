@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'date_converter.dart'; // your Hijri class
 import 'month_utils.dart';
+import 'dimension.dart';
 
 class CalendarTableHijri extends StatelessWidget {
   final Hijri selectedDate;
@@ -80,7 +81,7 @@ class CalendarTableHijri extends StatelessWidget {
             child: Text(
               '$day',
               style: TextStyle(
-                fontSize: 13,
+                fontSize: Dimen.fBig,
                 fontWeight: FontWeight.bold,
                 color: isDisabled
                     ? Colors.grey
@@ -100,19 +101,22 @@ class CalendarTableHijri extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTodayHeader(todayHijri),
-        const SizedBox(height: 12),
+        _buildTodayHeader(context,todayHijri),
+        //const SizedBox(height: Dimen.spacingMedium),
         _buildMonthNavigation(),
-        const SizedBox(height: 12),
+        const SizedBox(height: Dimen.spacingMedium),
         _buildWeekdayRow(
-            ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت']),
+            ['أح', 'إث', 'ث', 'أر', 'خم', 'جم', 'سب']),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
             return TableRow(
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
-                return SizedBox(height: 40, child: dayCells[index]);
+                return SizedBox(
+                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
+                    child: dayCells[index]
+                );
               }),
             );
           }),
@@ -121,10 +125,12 @@ class CalendarTableHijri extends StatelessWidget {
     );
   }
 
-  Widget _buildTodayHeader(Hijri today) {
+  Widget _buildTodayHeader(BuildContext context, Hijri today) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 10, top: 2, right: 10, bottom: 12),
+      margin: EdgeInsets.all(
+        Dimen.isSmall(context)? Dimen.spacingLarge:Dimen.spacingSmall,
+      ),
       decoration: BoxDecoration(
         color: Colors.teal[500],
         borderRadius: BorderRadius.circular(6),
@@ -136,13 +142,13 @@ class CalendarTableHijri extends StatelessWidget {
             children: [
               const Text("منتقي تاريخ التقويم الهجري",
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: Dimen.fBig,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontStyle: FontStyle.italic)),
             ],
           ),
-          const SizedBox(height: 10),
+          //const SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               if (selectedDate.month != today.month ||
@@ -152,21 +158,22 @@ class CalendarTableHijri extends StatelessWidget {
             },
             child: Row(
               children: [
-                const Icon(Icons.today, size: 18, color: Colors.white),
-                const SizedBox(width: 6),
+                const Icon(Icons.today, size: 12, color: Colors.white),
+                const SizedBox(width: Dimen.spacingMedium),
                 const Text("اليوم:",
                     style: TextStyle(
-                        fontSize: 13,
+                        fontSize: Dimen.fBig,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                const SizedBox(width: 6),
+                const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   today.toString(),
-                  style: const TextStyle(fontSize: 15, color: Colors.white),
+                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: Dimen.spacingMedium)
         ],
       ),
     );
@@ -177,7 +184,7 @@ class CalendarTableHijri extends StatelessWidget {
       children: List.generate(7, (i) {
         return Expanded(
           child: Container(
-            height: 24,
+            height: Dimen.cellSmall,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: const Color(0xFFE3F2FD),
@@ -186,7 +193,7 @@ class CalendarTableHijri extends StatelessWidget {
             child: Text(
               labels[i],
               style: TextStyle(
-                fontSize: 11,
+                fontSize: Dimen.fSmall,
                 fontWeight: FontWeight.bold,
                 color: i == 0 ? Colors.red : Colors.black,
               ),
@@ -208,13 +215,13 @@ class CalendarTableHijri extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         Text(hijriMonthNames[selectedDate.month],
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-        const SizedBox(width: 6),
+            style: const TextStyle(fontSize: Dimen.fBig, fontWeight: FontWeight.bold)),
+        const SizedBox(width: Dimen.spacingSmall),
         SizedBox(
-          width: 70,
-          height: 28,
+          width: 60,
+          height: Dimen.cellSmall,
           child: buildDropdown<int>(
             hint: 'Year',
             value: selectedDate.year,
@@ -227,7 +234,7 @@ class CalendarTableHijri extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],
@@ -260,12 +267,12 @@ class CalendarTableHijri extends StatelessWidget {
 
   Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
     return IconButton(
-      iconSize: 20,
+      iconSize: 15,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       onPressed: onPressed,
       icon: Container(
-        padding: const EdgeInsets.all(4),
+        padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(2),

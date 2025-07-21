@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'month_utils.dart';
+import 'dimension.dart';
 
 class CalendarTableGregorian extends StatelessWidget {
   final DateTime selectedDate;
@@ -51,7 +52,7 @@ class CalendarTableGregorian extends StatelessWidget {
                       : isWeekend
                           ? Colors.orange[100]
                           : null,
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(3),
               border: Border.all(
                 color: isToday || isSelected ? Colors.teal : Colors.transparent,
               ),
@@ -60,7 +61,7 @@ class CalendarTableGregorian extends StatelessWidget {
             child: Text(
               '$day',
               style: TextStyle(
-                fontSize: 13,
+                fontSize: Dimen.fBig,
                 fontWeight: FontWeight.bold,
                 color: isDisabled
                     ? Colors.grey
@@ -81,18 +82,21 @@ class CalendarTableGregorian extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _buildTodayHeader(today),
-        const SizedBox(height: 12),
+        _buildTodayHeader(context,today),
+        //const SizedBox(height: Dimen.spacingMedium),
         _buildMonthNavigation(),
-        const SizedBox(height: 12),
-        _buildWeekdayRow(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']),
+        const SizedBox(height: Dimen.spacingMedium),
+        _buildWeekdayRow(['S', 'M', 'T', 'W', 'T', 'F', 'S']),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
             return TableRow(
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
-                return SizedBox(height: 40, child: dayCells[index]);
+                return SizedBox(
+                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
+                    child: dayCells[index]
+                );
               }),
             );
           }),
@@ -101,28 +105,29 @@ class CalendarTableGregorian extends StatelessWidget {
     );
   }
 
-  Widget _buildTodayHeader(DateTime today) {
+  Widget _buildTodayHeader(BuildContext context, DateTime today) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 10, top: 2, right: 10, bottom: 12),
+      margin:  EdgeInsets.all(
+          Dimen.isSmall(context)?Dimen.spacingLarge:Dimen.spacingSmall),//(left: 10, top: 2, right: 10, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.teal[500],
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(5),
       ),
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Gregorian Date Calender Picker",
+              const Text("Gregorian Date Picker",
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: Dimen.fBig,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       fontStyle: FontStyle.italic)),
             ],
           ),
-          const SizedBox(height: 10),
+          //const SizedBox(height: 5),
           GestureDetector(
             onTap: () {
               if (selectedDate.month != today.month ||
@@ -132,21 +137,22 @@ class CalendarTableGregorian extends StatelessWidget {
             },
             child: Row(
               children: [
-                const Icon(Icons.today, size: 18, color: Colors.white),
-                const SizedBox(width: 6),
+                const Icon(Icons.today, size: 12, color: Colors.white),
+                const SizedBox(width: Dimen.spacingMedium),
                 const Text("Today:",
                     style: TextStyle(
-                        fontSize: 12,
+                        fontSize: Dimen.fBig,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                const SizedBox(width: 6),
+                const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   _formatFullDate(today),
-                  style: const TextStyle(fontSize: 13, color: Colors.white),
+                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
           ),
+          const SizedBox(height: Dimen.spacingMedium)
         ],
       ),
     );
@@ -162,7 +168,8 @@ class CalendarTableGregorian extends StatelessWidget {
       'Friday',
       'Saturday'
     ];
-    return '${days[date.weekday % 7]}, ${monthNames[date.month]} ${date.day}, ${date.year}';
+    //${days[date.weekday % 7]},
+    return ' ${monthNames[date.month]} ${date.day}, ${date.year}';
   }
 
   bool _isSameDate(DateTime a, DateTime b) =>
@@ -173,7 +180,7 @@ class CalendarTableGregorian extends StatelessWidget {
       children: List.generate(7, (i) {
         return Expanded(
           child: Container(
-            height: 24,
+            height: Dimen.cellSmall,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: const Color(0xFFE3F2FD),
@@ -182,7 +189,7 @@ class CalendarTableGregorian extends StatelessWidget {
             child: Text(
               labels[i],
               style: TextStyle(
-                fontSize: 11,
+                fontSize: Dimen.fBig,
                 fontWeight: FontWeight.bold,
                 color: i == 0 ? Colors.red : Colors.black,
               ),
@@ -204,13 +211,13 @@ class CalendarTableGregorian extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         Text('${monthNames[selectedDate.month]}',
-            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-        const SizedBox(width: 6),
+            style: const TextStyle(fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
+        const SizedBox(width: Dimen.spacingSmall),
         SizedBox(
-          width: 70,
-          height: 28,
+          width: 60,
+          height: Dimen.cellSmall,
           child: buildDropdown<int>(
             hint: 'Year',
             value: selectedDate.year,
@@ -222,7 +229,7 @@ class CalendarTableGregorian extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],
@@ -244,17 +251,17 @@ class CalendarTableGregorian extends StatelessWidget {
 
   Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
     return IconButton(
-      iconSize: 20,
+      iconSize: 15,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       onPressed: onPressed,
       icon: Container(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(2),
         ),
-        child: Icon(icon, size: 16, color: Colors.black),
+        child: Icon(icon, size: 13, color: Colors.black),
       ),
     );
   }

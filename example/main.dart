@@ -23,9 +23,10 @@ class _HomePageState extends State<HomePage> {
   /// These variables are used to store the returened
   /// value from date pickers for further use
 
-  dynamic selectedGDate;
-  dynamic selectedHDate;
-  dynamic selectedEDate;
+  DateTime? selectedGDate;
+  Hijri? selectedHDate;
+  Ethiopian? selectedEDate;
+
 
   CalendarType selectedCalendarType = CalendarType.gregorian;
 

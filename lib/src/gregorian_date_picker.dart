@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import './utils/calendar_table.dart';
+import '../src/utils/dimension.dart';
 
-Future<DateTime?> GregorianDatePicker({
+Future<DateTime?> gregorianDatePicker({
   required BuildContext context,
   required int initialYear,
   required int firstYear,
@@ -10,15 +11,15 @@ Future<DateTime?> GregorianDatePicker({
   // Here is intialYear needed
   DateTime tempSelected = DateTime(initialYear, 1, 1);
 
-  final dialogWidth = 250.0;
-
   return showDialog<DateTime>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        contentPadding: const EdgeInsets.all(12),
+        contentPadding: EdgeInsets.all(
+          Dimen.isSmall(context)?Dimen.spacingSmall:Dimen.spacingLarge
+        ),
         content: SizedBox(
-          width: dialogWidth,
+          width: Dimen.isSmall(context)?Dimen.dialogWidthSmall:Dimen.dialogWidthLarge,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
@@ -32,21 +33,22 @@ Future<DateTime?> GregorianDatePicker({
                       setState(() => tempSelected = newDate);
                     },
                   ),
-                  const SizedBox(height: 10),
-                  Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, null),
                         child: const Text("Cancel"),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: Dimen.spacingMedium),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, tempSelected),
                         child: const Text("OK"),
                       ),
+                      const SizedBox(width: Dimen.spacingMedium),
                     ],
-                  )
+                  ),
+                  const SizedBox(height: Dimen.spacingMedium),
                 ],
               );
             },

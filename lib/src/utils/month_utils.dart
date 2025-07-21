@@ -7,7 +7,7 @@ Widget buildDropdown<T>({
   required void Function(T?) onChanged,
 }) {
   return SizedBox(
-    width: 70,
+    width: 60,
     child: DropdownButtonFormField<T>(
       isExpanded: true,
       value: value,
@@ -28,7 +28,7 @@ Widget buildDropdown<T>({
           child: Text(
             '$item',
             style: const TextStyle(
-                fontSize: 11, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 10, color: Colors.black, fontWeight: FontWeight.bold),
           ),
         );
       }).toList(),
@@ -44,7 +44,7 @@ const List<String> monthNames = [
 ];
 const List<String> ethiopianMonthNames = [
   '',
-  'መስከረም',
+  'መስከረ',
   'ጥቅምት',
   'ኅዳር',
   'ታህሳስ',
@@ -65,8 +65,8 @@ const List<String> hijriMonthNames = [
   'صَفَر',
   'رَبِيع ٱلْأَوَّل',
   'رَبِيع ٱلثَّانِي',
-  'جُمَادَى ٱلْأُولَى',
-  'جُمَادَى ٱلثَّانِيَة',
+  'جُ. ٱلْأُولَى',
+  'جُ. ٱلثَّانِيَة',
   'رَجَب',
   'شَعْبَان',
   'رَمَضَان',

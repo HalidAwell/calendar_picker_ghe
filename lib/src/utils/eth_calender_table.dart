@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'date_converter.dart'; // your Ethiopian class
 import 'month_utils.dart'; // use this if you define weekday names etc.
+import 'dimension.dart';
 
 class CalendarTableEthiopian extends StatelessWidget {
   final Ethiopian selectedDate;
@@ -77,7 +78,7 @@ class CalendarTableEthiopian extends StatelessWidget {
             child: Text(
               '$day',
               style: TextStyle(
-                fontSize: 13,
+                fontSize: Dimen.fBig,
                 fontWeight: FontWeight.bold,
                 color: isDisabled
                     ? Colors.grey
@@ -97,10 +98,10 @@ class CalendarTableEthiopian extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTodayHeader(todayEth),
-        const SizedBox(height: 12),
+        _buildTodayHeader(context,todayEth),
+        //const SizedBox(height: 12),
         _buildMonthNavigation(),
-        const SizedBox(height: 12),
+        const SizedBox(height: Dimen.spacingMedium),
         _buildWeekdayRow(['እሁ', 'ሰኞ', 'ማክ', 'ረቡ', 'ሐሙ', 'አር', 'ቅዳ']),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
@@ -108,7 +109,9 @@ class CalendarTableEthiopian extends StatelessWidget {
             return TableRow(
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
-                return SizedBox(height: 40, child: dayCells[index]);
+                return SizedBox(
+                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
+                    child: dayCells[index]);
               }),
             );
           }),
@@ -117,10 +120,11 @@ class CalendarTableEthiopian extends StatelessWidget {
     );
   }
 
-  Widget _buildTodayHeader(Ethiopian today) {
+  Widget _buildTodayHeader(BuildContext context,Ethiopian today) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(left: 10, top: 2, right: 10, bottom: 12),
+      margin:  EdgeInsets.all(
+          Dimen.isSmall(context)?Dimen.spacingLarge:Dimen.spacingSmall),//(left: 10, top: 2, right: 10, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.teal[500],
         borderRadius: BorderRadius.circular(6),
@@ -132,13 +136,13 @@ class CalendarTableEthiopian extends StatelessWidget {
             children: [
               const Text("የኢትዮጵያ የቀን መምረጫ",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: Dimen.fBig,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   )),
             ],
           ),
-          const SizedBox(height: 5),
+          //const SizedBox(height: 5),
           GestureDetector(
             onTap: () {
               if (selectedDate.month != today.month ||
@@ -148,22 +152,22 @@ class CalendarTableEthiopian extends StatelessWidget {
             },
             child: Row(
               children: [
-                const Icon(Icons.today, size: 18, color: Colors.white),
-                const SizedBox(width: 6),
+                const Icon(Icons.today, size: 12, color: Colors.white),
+                const SizedBox(width: Dimen.spacingMedium),
                 const Text("ዛሬ:",
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: Dimen.fBig,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                const SizedBox(width: 6),
+                const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   today.toString(),
-                  style: const TextStyle(fontSize: 13, color: Colors.white),
+                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: Dimen.spacingMedium),
         ],
       ),
     );
@@ -174,7 +178,7 @@ class CalendarTableEthiopian extends StatelessWidget {
       children: List.generate(7, (i) {
         return Expanded(
           child: Container(
-            height: 24,
+            height: Dimen.cellSmall,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: const Color(0xFFE0F2F1),
@@ -183,7 +187,7 @@ class CalendarTableEthiopian extends StatelessWidget {
             child: Text(
               labels[i],
               style: TextStyle(
-                fontSize: 11,
+                fontSize: Dimen.fSmall,
                 fontWeight: FontWeight.bold,
                 color: i == 0 ? Colors.red : Colors.black,
               ),
@@ -203,15 +207,15 @@ class CalendarTableEthiopian extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         Text(
           ethiopianMonthNames[selectedDate.month],
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: Dimen.fBig, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(width: 6),
+        const SizedBox(width: Dimen.spacingSmall),
         SizedBox(
           width: 70,
-          height: 28,
+          height: Dimen.cellSmall,
           child: buildDropdown<int>(
             hint: 'አመት',
             value: selectedDate.year,
@@ -223,7 +227,7 @@ class CalendarTableEthiopian extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(width: 4),
+        const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],
@@ -256,12 +260,12 @@ class CalendarTableEthiopian extends StatelessWidget {
 
   Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
     return IconButton(
-      iconSize: 20,
+      iconSize: 15,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       onPressed: onPressed,
       icon: Container(
-        padding: const EdgeInsets.all(4),
+        padding: EdgeInsets.zero,
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(2),

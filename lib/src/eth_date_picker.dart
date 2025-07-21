@@ -2,7 +2,9 @@ import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:calendar_picker_ghe/src/utils/eth_calender_table.dart';
 import 'package:flutter/material.dart';
 
-Future<Ethiopian?> EthiopianDatePicker({
+import '../src/utils/dimension.dart';
+
+Future<Ethiopian?> ethiopianDatePicker({
   required BuildContext context,
   required int initialYear,
   required int firstYear,
@@ -16,9 +18,11 @@ Future<Ethiopian?> EthiopianDatePicker({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        contentPadding: const EdgeInsets.all(12),
+        contentPadding: EdgeInsets.all(
+            Dimen.isSmall(context)?Dimen.spacingSmall:Dimen.spacingLarge
+        ),
         content: SizedBox(
-          width: dialogWidth,
+          width: Dimen.isSmall(context)?Dimen.dialogWidthSmall:Dimen.dialogWidthLarge,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
@@ -32,7 +36,7 @@ Future<Ethiopian?> EthiopianDatePicker({
                       setState(() => tempSelected = newDate);
                     },
                   ),
-                  const SizedBox(height: 10),
+                  //const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -40,14 +44,16 @@ Future<Ethiopian?> EthiopianDatePicker({
                         onPressed: () => Navigator.pop(context, null),
                         child: const Text("ሰርዝ"),
                       ),
-                      const SizedBox(width: 8),
+                      const SizedBox(width: Dimen.spacingMedium),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, tempSelected),
                         child: const Text("እሺ"),
                       ),
-                    ],
-                  )
-                ],
+              const SizedBox(width: Dimen.spacingMedium),
+              ],
+              ),
+              const SizedBox(height: Dimen.spacingMedium),
+              ],
               );
             },
           ),
