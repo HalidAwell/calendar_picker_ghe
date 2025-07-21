@@ -159,7 +159,7 @@ class CalendarTableGregorian extends StatelessWidget {
   }
 
   String _formatFullDate(DateTime date) {
-    const days = [
+    /*const days = [
       'Sunday',
       'Monday',
       'Tuesday',
@@ -167,7 +167,7 @@ class CalendarTableGregorian extends StatelessWidget {
       'Thursday',
       'Friday',
       'Saturday'
-    ];
+    ];*/
     //${days[date.weekday % 7]},
     return ' ${monthNames[date.month]} ${date.day}, ${date.year}';
   }

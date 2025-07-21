@@ -17,7 +17,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 - 📆 Configurable year range: `firstYear`, `lastYear`, and `initialYear`
 - 🎯 Unified function: `showUnifiedDatePicker(...)`
 - 🌍 Clean, extensible codebase for integrating other calendars
-
+- Responsive for small devices
 ---
 
 ## 📸 Screenshots

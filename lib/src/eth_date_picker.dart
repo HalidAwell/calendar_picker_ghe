@@ -11,8 +11,7 @@ Future<Ethiopian?> ethiopianDatePicker({
   required int lastYear,
 }) async {
   Ethiopian tempSelected = Ethiopian(initialYear, 1, 1);
-
-  final dialogWidth = 250.0;
+  
 
   return showDialog<Ethiopian>(
     context: context,

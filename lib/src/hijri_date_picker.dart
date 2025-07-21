@@ -1,8 +1,8 @@
 import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:flutter/material.dart';
 import './utils/hijri_calender_table.dart';
-
 import '../src/utils/dimension.dart';
+
 Future<Hijri?> hijriDatePicker({
   required BuildContext context,
   required int intialYear,
@@ -11,7 +11,6 @@ Future<Hijri?> hijriDatePicker({
 }) async {
   Hijri tempSelected = Hijri(year: intialYear, month: 1, day: 1);
 
-  final dialogWidth = 250.0;
 
   return showDialog<Hijri>(
     context: context,
