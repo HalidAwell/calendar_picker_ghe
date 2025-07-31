@@ -9,3 +9,7 @@
 ## 1.1.0
  - Responsive for small screen device
  - Customize some layout
+
+## 1.1.1
+ - Centering Month year selecter
+ - Show full name of ethiopian months

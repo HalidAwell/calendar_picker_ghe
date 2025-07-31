@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
   Hijri? selectedHDate;
   Ethiopian? selectedEDate;
 
-
   CalendarType selectedCalendarType = CalendarType.gregorian;
 
   @override

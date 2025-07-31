@@ -24,21 +24,21 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 ### 📅 Gregorian Calendar
 
-| On Small Screen                                      | On Big Screen                                     |
-|------------------------------------------------------|---------------------------------------------------|
-| ![Gregorian Table](assets/screenshots/grigSmall.PNG) | ![Gregorian Year](assets/screenshots/grigBig.PNG) |
+| On Small Screen                                       | On Big Screen                                      |
+|-------------------------------------------------------|----------------------------------------------------|
+| ![Gregorian Table](assets/screenshots/grigSmall2.PNG) | ![Gregorian Year](assets/screenshots/grigBig2.PNG) |
 
 ### 🗿 Ethiopian Calendar
 
-| On Small Screen                                     | On Big Screen                                    |
-|-----------------------------------------------------|--------------------------------------------------|
-| ![Ethiopian Table](assets/screenshots/ethSmall.PNG) | ![Ethiopian Year](assets/screenshots/ethBig.PNG) |
+| On Small Screen                                      | On Big Screen                                     |
+|------------------------------------------------------|---------------------------------------------------|
+| ![Ethiopian Table](assets/screenshots/ethSmall2.PNG) | ![Ethiopian Year](assets/screenshots/ethBig2.PNG) |
 
 ### 🌙 Hijri Calendar
 
-| On Small Screen                                   | On Big Screen                                  |
-|---------------------------------------------------|------------------------------------------------|
-| ![Hijri Table](assets/screenshots/hijriSmall.PNG) | ![Hijri Year](assets/screenshots/hijriBig.PNG) |
+| On Small Screen                                    | On Big Screen                                   |
+|----------------------------------------------------|-------------------------------------------------|
+| ![Hijri Table](assets/screenshots/hijriSmall2.PNG) | ![Hijri Year](assets/screenshots/hijriBig2.PNG) |
 
 ---
 
@@ -100,7 +100,7 @@ initialYear: Ethiopian.now().year, // Ethiopian calendar
 (Requires appropriate date converter utilities from calendar_converter.dart)
 
 ### 📝 License
-This project is licensed under the MIT License.
+This project is licensed under the terms of the [Apache License 2.0](LICENSE).
 
 ### 📬 Contact
 For questions, feedback, or contributions:

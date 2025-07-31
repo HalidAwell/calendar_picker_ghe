@@ -16,10 +16,11 @@ Future<DateTime?> gregorianDatePicker({
     builder: (BuildContext context) {
       return AlertDialog(
         contentPadding: EdgeInsets.all(
-          Dimen.isSmall(context)?Dimen.spacingSmall:Dimen.spacingLarge
-        ),
+            Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge),
         content: SizedBox(
-          width: Dimen.isSmall(context)?Dimen.dialogWidthSmall:Dimen.dialogWidthLarge,
+          width: Dimen.isSmall(context)
+              ? Dimen.dialogWidthSmall
+              : Dimen.dialogWidthLarge,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
@@ -33,7 +34,7 @@ Future<DateTime?> gregorianDatePicker({
                       setState(() => tempSelected = newDate);
                     },
                   ),
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(

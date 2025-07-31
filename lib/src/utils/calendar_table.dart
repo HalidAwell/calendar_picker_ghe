@@ -82,7 +82,7 @@ class CalendarTableGregorian extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _buildTodayHeader(context,today),
+        _buildTodayHeader(context, today),
         //const SizedBox(height: Dimen.spacingMedium),
         _buildMonthNavigation(),
         const SizedBox(height: Dimen.spacingMedium),
@@ -94,9 +94,10 @@ class CalendarTableGregorian extends StatelessWidget {
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
                 return SizedBox(
-                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
-                    child: dayCells[index]
-                );
+                    height: Dimen.isSmall(context)
+                        ? Dimen.cellSmall
+                        : Dimen.cellMedium,
+                    child: dayCells[index]);
               }),
             );
           }),
@@ -108,8 +109,9 @@ class CalendarTableGregorian extends StatelessWidget {
   Widget _buildTodayHeader(BuildContext context, DateTime today) {
     return Container(
       width: double.infinity,
-      margin:  EdgeInsets.all(
-          Dimen.isSmall(context)?Dimen.spacingLarge:Dimen.spacingSmall),//(left: 10, top: 2, right: 10, bottom: 12),
+      margin: EdgeInsets.all(Dimen.isSmall(context)
+          ? Dimen.spacingLarge
+          : Dimen.spacingSmall), //(left: 10, top: 2, right: 10, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.teal[500],
         borderRadius: BorderRadius.circular(5),
@@ -147,7 +149,8 @@ class CalendarTableGregorian extends StatelessWidget {
                 const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   _formatFullDate(today),
-                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
@@ -211,25 +214,35 @@ class CalendarTableGregorian extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: Dimen.spacingSmall),
-        Text('${monthNames[selectedDate.month]}',
-            style: const TextStyle(fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
-        const SizedBox(width: Dimen.spacingSmall),
-        SizedBox(
-          width: 60,
-          height: Dimen.cellSmall,
-          child: buildDropdown<int>(
-            hint: 'Year',
-            value: selectedDate.year,
-            items: yearRange,
-            onChanged: (year) {
-              if (year != null) {
-                onDateSelected(DateTime(year, selectedDate.month, 1));
-              }
-            },
+        //const SizedBox(width: Dimen.spacingSmall),
+        Expanded(
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('${monthNames[selectedDate.month]}',
+                    style: const TextStyle(
+                        fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
+                //const SizedBox(width: Dimen.spacingSmall),
+                SizedBox(
+                  width: 60,
+                  height: Dimen.cellSmall,
+                  child: buildDropdown<int>(
+                    hint: 'Year',
+                    value: selectedDate.year,
+                    items: yearRange,
+                    onChanged: (year) {
+                      if (year != null) {
+                        onDateSelected(DateTime(year, selectedDate.month, 1));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        const SizedBox(width: Dimen.spacingSmall),
+        //const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],

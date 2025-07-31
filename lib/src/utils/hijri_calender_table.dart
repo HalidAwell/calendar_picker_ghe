@@ -101,12 +101,11 @@ class CalendarTableHijri extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTodayHeader(context,todayHijri),
+        _buildTodayHeader(context, todayHijri),
         //const SizedBox(height: Dimen.spacingMedium),
         _buildMonthNavigation(),
         const SizedBox(height: Dimen.spacingMedium),
-        _buildWeekdayRow(
-            ['أح', 'إث', 'ث', 'أر', 'خم', 'جم', 'سب']),
+        _buildWeekdayRow(['أح', 'إث', 'ث', 'أر', 'خم', 'جم', 'سب']),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
@@ -114,9 +113,10 @@ class CalendarTableHijri extends StatelessWidget {
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
                 return SizedBox(
-                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
-                    child: dayCells[index]
-                );
+                    height: Dimen.isSmall(context)
+                        ? Dimen.cellSmall
+                        : Dimen.cellMedium,
+                    child: dayCells[index]);
               }),
             );
           }),
@@ -129,7 +129,7 @@ class CalendarTableHijri extends StatelessWidget {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.all(
-        Dimen.isSmall(context)? Dimen.spacingLarge:Dimen.spacingSmall,
+        Dimen.isSmall(context) ? Dimen.spacingLarge : Dimen.spacingSmall,
       ),
       decoration: BoxDecoration(
         color: Colors.teal[500],
@@ -168,7 +168,8 @@ class CalendarTableHijri extends StatelessWidget {
                 const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   today.toString(),
-                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
@@ -215,26 +216,36 @@ class CalendarTableHijri extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: Dimen.spacingSmall),
-        Text(hijriMonthNames[selectedDate.month],
-            style: const TextStyle(fontSize: Dimen.fBig, fontWeight: FontWeight.bold)),
-        const SizedBox(width: Dimen.spacingSmall),
-        SizedBox(
-          width: 60,
-          height: Dimen.cellSmall,
-          child: buildDropdown<int>(
-            hint: 'Year',
-            value: selectedDate.year,
-            items: yearRange,
-            onChanged: (year) {
-              if (year != null) {
-                onDateSelected(
-                    Hijri(year: year, month: selectedDate.month, day: 1));
-              }
-            },
+        //const SizedBox(width: Dimen.spacingSmall),
+        Expanded(
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(hijriMonthNames[selectedDate.month],
+                    style: const TextStyle(
+                        fontSize: Dimen.fBig, fontWeight: FontWeight.bold)),
+                //const SizedBox(width: Dimen.spacingSmall),
+                SizedBox(
+                  width: 60,
+                  height: Dimen.cellSmall,
+                  child: buildDropdown<int>(
+                    hint: 'Year',
+                    value: selectedDate.year,
+                    items: yearRange,
+                    onChanged: (year) {
+                      if (year != null) {
+                        onDateSelected(Hijri(
+                            year: year, month: selectedDate.month, day: 1));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        const SizedBox(width: Dimen.spacingSmall),
+        //const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],

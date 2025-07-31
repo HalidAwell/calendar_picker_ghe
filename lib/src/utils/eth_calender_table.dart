@@ -98,7 +98,7 @@ class CalendarTableEthiopian extends StatelessWidget {
 
     return Column(
       children: [
-        _buildTodayHeader(context,todayEth),
+        _buildTodayHeader(context, todayEth),
         //const SizedBox(height: 12),
         _buildMonthNavigation(),
         const SizedBox(height: Dimen.spacingMedium),
@@ -110,7 +110,9 @@ class CalendarTableEthiopian extends StatelessWidget {
               children: List.generate(7, (dayOfWeek) {
                 final index = week * 7 + dayOfWeek;
                 return SizedBox(
-                    height: Dimen.isSmall(context)?Dimen.cellSmall:Dimen.cellMedium,
+                    height: Dimen.isSmall(context)
+                        ? Dimen.cellSmall
+                        : Dimen.cellMedium,
                     child: dayCells[index]);
               }),
             );
@@ -120,11 +122,12 @@ class CalendarTableEthiopian extends StatelessWidget {
     );
   }
 
-  Widget _buildTodayHeader(BuildContext context,Ethiopian today) {
+  Widget _buildTodayHeader(BuildContext context, Ethiopian today) {
     return Container(
       width: double.infinity,
-      margin:  EdgeInsets.all(
-          Dimen.isSmall(context)?Dimen.spacingLarge:Dimen.spacingSmall),//(left: 10, top: 2, right: 10, bottom: 12),
+      margin: EdgeInsets.all(Dimen.isSmall(context)
+          ? Dimen.spacingLarge
+          : Dimen.spacingSmall), //(left: 10, top: 2, right: 10, bottom: 12),
       decoration: BoxDecoration(
         color: Colors.teal[500],
         borderRadius: BorderRadius.circular(6),
@@ -162,7 +165,8 @@ class CalendarTableEthiopian extends StatelessWidget {
                 const SizedBox(width: Dimen.spacingMedium),
                 Text(
                   today.toString(),
-                  style: const TextStyle(fontSize: Dimen.fBig, color: Colors.white),
+                  style: const TextStyle(
+                      fontSize: Dimen.fBig, color: Colors.white),
                 ),
               ],
             ),
@@ -207,27 +211,37 @@ class CalendarTableEthiopian extends StatelessWidget {
       children: [
         _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
         _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-        const SizedBox(width: Dimen.spacingSmall),
-        Text(
-          ethiopianMonthNames[selectedDate.month],
-          style: const TextStyle(fontSize: Dimen.fBig, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(width: Dimen.spacingSmall),
-        SizedBox(
-          width: 70,
-          height: Dimen.cellSmall,
-          child: buildDropdown<int>(
-            hint: 'አመት',
-            value: selectedDate.year,
-            items: yearRange,
-            onChanged: (year) {
-              if (year != null) {
-                onDateSelected(Ethiopian(year, selectedDate.month, 1));
-              }
-            },
+        //const SizedBox(width: Dimen.spacingSmall),
+        Expanded(
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  ethiopianMonthNames[selectedDate.month],
+                  style: const TextStyle(
+                      fontSize: Dimen.fMedium, fontWeight: FontWeight.bold),
+                ),
+                //const SizedBox(width: Dimen.spacingSmall),
+                SizedBox(
+                  width: 70,
+                  height: Dimen.cellSmall,
+                  child: buildDropdown<int>(
+                    hint: 'አመት',
+                    value: selectedDate.year,
+                    items: yearRange,
+                    onChanged: (year) {
+                      if (year != null) {
+                        onDateSelected(Ethiopian(year, selectedDate.month, 1));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-        const SizedBox(width: Dimen.spacingSmall),
+        //const SizedBox(width: Dimen.spacingSmall),
         _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
         _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
       ],

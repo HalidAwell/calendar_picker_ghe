@@ -11,16 +11,17 @@ Future<Hijri?> hijriDatePicker({
 }) async {
   Hijri tempSelected = Hijri(year: intialYear, month: 1, day: 1);
 
-
   return showDialog<Hijri>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-          contentPadding: EdgeInsets.all(
-        Dimen.isSmall(context)?Dimen.spacingSmall:Dimen.spacingLarge,
-          ),
+        contentPadding: EdgeInsets.all(
+          Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge,
+        ),
         content: SizedBox(
-          width: Dimen.isSmall(context)?Dimen.dialogWidthSmall:Dimen.dialogWidthLarge,
+          width: Dimen.isSmall(context)
+              ? Dimen.dialogWidthSmall
+              : Dimen.dialogWidthLarge,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
