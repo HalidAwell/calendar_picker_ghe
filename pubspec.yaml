@@ -22,6 +22,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/screenshots/
 
 topics:
   - calendar-converter
@@ -32,3 +34,4 @@ topics:
 license: Apache-2.0
 exclude:
   - lib/main.dart
+
