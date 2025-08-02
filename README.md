@@ -51,19 +51,13 @@ Run this command in your Flutter terminal:
 ```bash
 flutter pub add calendar_picker_ghe
 ```
-This will add the following line to your pubspec.yaml and fetch the package:
 
-```yaml
-dependencies:
-calendar_picker_ghe: ^1.0.0
-```
 ### 📥 Import the Package
 In your Dart file:
 
 ```
 import 'package:calendar_picker_ghe/calendar_picker.dart';
 ```
-Alternatively, add the dependency manually in pubspec.yaml and run flutter pub get.
 
 ### 🧪 Usage
 <pre lang="markdown"> 

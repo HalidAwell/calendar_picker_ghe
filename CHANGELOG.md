@@ -16,3 +16,6 @@
 
 ## 1.1.2
   - Fix bug in README
+
+## 1.1.3
+  - Update documentation
