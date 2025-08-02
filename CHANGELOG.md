@@ -13,3 +13,6 @@
 ## 1.1.1
  - Centering Month year selecter
  - Show full name of ethiopian months
+
+## 1.1.2
+  - Fix bug in README
