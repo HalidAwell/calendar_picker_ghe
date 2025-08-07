@@ -38,82 +38,88 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    /// As you see here  to use calender pickers from unified
-                    /// model call showUnifiedDatePicker by identifing the calender type
-                    /// initialYear can be simple (int) year like 2025, forexample, or
-                    /// as i use you can assign today's year as shown below.
-                    final result = await showUnifiedDatePicker(
-                      context: context,
-                      calendarType: CalendarType.gregorian,
-                      initialYear: DateTime.now().year,
-                      firstYear: 1900,
-                      lastYear: 2100,
-                    );
-                    if (result != null) {
-                      setState(() {
-                        selectedGDate = result;
-                      });
-                    }
-                  },
-                  child: const Text('Pick Gregorian'),
-                ),
-                // this is example for Hijri year.
-                ElevatedButton(
-                  onPressed: () async {
-                    final result = await showUnifiedDatePicker(
-                      context: context,
-                      calendarType: CalendarType.hijri,
-                      initialYear: Hijri.now().year,
-                      firstYear: 1358,
-                      lastYear: 1500,
-                    );
-                    if (result != null) {
-                      setState(() {
-                        selectedHDate = result;
-                      });
-                    }
-                  },
-                  child: const Text('Pick Hijri'),
-                ),
-
-                /// this is for ethiopian calender picker example.
-                ElevatedButton(
-                  onPressed: () async {
-                    final result = await showUnifiedDatePicker(
-                      context: context,
-                      calendarType: CalendarType.ethiopian,
-                      initialYear: Ethiopian.now().year,
-                      firstYear: 1900,
-                      lastYear: 2100,
-                    );
-                    if (result != null) {
-                      setState(() {
-                        selectedEDate = result;
-                      });
-                    }
-                  },
-                  child: const Text('Pick Ethiopian'),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () async {
+                /// Show Gregorian date picker
+                /// initialYear can be any valid year or use current year
+                final result = await showUnifiedDatePicker(
+                  context: context,
+                  calendarType: CalendarType.gregorian,
+                  initialYear: DateTime.now().year,
+                  firstYear: 1900,
+                  lastYear: 2100,
+                  locale: 'ar',
+                );
+                if (result != null) {
+                  setState(() {
+                    selectedGDate = result;
+                  });
+                }
+              },
+              child: const Text('Pick Gregorian'),
             ),
+
+            // Show Hijri date picker
+            ElevatedButton(
+              onPressed: () async {
+                final result = await showUnifiedDatePicker(
+                  context: context,
+                  calendarType: CalendarType.hijri,
+                  initialYear: Hijri.now().year,
+                  firstYear: 1358, // Roughly equivalent to 1940s
+                  lastYear: 1500,
+                  locale: 'ar',
+                );
+                if (result != null) {
+                  setState(() {
+                    selectedHDate = result;
+                  });
+                }
+              },
+              child: const Text('Pick Hijri'),
+            ),
+
+            // Show Ethiopian date picker
+            ElevatedButton(
+              onPressed: () async {
+                final result = await showUnifiedDatePicker(
+                  context: context,
+                  calendarType: CalendarType.ethiopian,
+                  initialYear: Ethiopian.now().year,
+                  firstYear: 1900,
+                  lastYear: 2100,
+                  locale: 'ar',
+                );
+                if (result != null) {
+                  setState(() {
+                    selectedEDate = result;
+                  });
+                }
+              },
+              child: const Text('Pick Ethiopian'),
+            ),
+
             const SizedBox(height: 20),
+
+            // Display selected Gregorian date
             if (selectedGDate != null)
               Text(
-                "Selected: ${selectedGDate}",
+                "Selected: $selectedGDate",
                 style: const TextStyle(fontSize: 16),
               ),
+
             const SizedBox(height: 5),
+
+            // Display selected Hijri date
             if (selectedHDate != null)
               Text(
                 "Selected: ${selectedHDate.toString()}",
                 style: const TextStyle(fontSize: 16),
               ),
+
             const SizedBox(height: 5),
+
+            // Display selected Ethiopian date
             if (selectedEDate != null)
               Text(
                 "Selected: ${selectedEDate.toString()}",

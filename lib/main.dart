@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'calendar_picker.dart'; // Import your unified calendar picker module
-import 'package:window_size/window_size.dart';
-import 'dart:io';
+import 'calendar_picker.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowTitle('My Ethiopian Calendar App');
-    setWindowMinSize(const Size(420, 850));
-    setWindowMaxSize(const Size(461, 850));
-    setWindowFrame(const Rect.fromLTWH(
-        300, 100, 420, 850)); // Set initial position and size
-  }
   runApp(const MyApp()); // Entry point of the app
 }
 
-// Root widget for the application
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -66,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: DateTime.now().year,
                   firstYear: 1900,
                   lastYear: 2100,
+                  locale: 'ar',
                 );
                 if (result != null) {
                   setState(() {
@@ -85,6 +76,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: Hijri.now().year,
                   firstYear: 1358, // Roughly equivalent to 1940s
                   lastYear: 1500,
+                  locale: 'ar',
                 );
                 if (result != null) {
                   setState(() {
@@ -104,6 +96,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: Ethiopian.now().year,
                   firstYear: 1900,
                   lastYear: 2100,
+                  locale: 'ar',
                 );
                 if (result != null) {
                   setState(() {
@@ -119,7 +112,7 @@ class _HomePageState extends State<HomePage> {
             // Display selected Gregorian date
             if (selectedGDate != null)
               Text(
-                "Selected: ${selectedGDate}",
+                "Selected: $selectedGDate",
                 style: const TextStyle(fontSize: 16),
               ),
 

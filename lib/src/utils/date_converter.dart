@@ -1,6 +1,5 @@
 import 'package:hijri/hijri_calendar.dart';
 import 'package:ethiopian_datetime/ethiopian_datetime.dart';
-import 'month_utils.dart';
 
 class Hijri {
   //Valid date should be between 1356 AH (14 March 1937 CE) to 1500 AH (16 November 2077 CE)
@@ -70,13 +69,6 @@ class Hijri {
   ///   print(h.hiToString()); → '10/1/1446 (Hijri)'
   @override */
 
-  @override
-  String toString() {
-    final monthName =
-        (month >= 1 && month <= 12) ? hijriMonthNames[month] : 'غير معروف';
-    return '$monthName $day, $year هـ';
-  }
-
   bool isWeekend() => toGreg().weekday >= 6;
 }
 
@@ -119,14 +111,6 @@ class Ethiopian {
       : year = date.convertToEthiopian().year,
         month = date.convertToEthiopian().month,
         day = date.convertToEthiopian().day;
-
-  /// String output for readability
-  @override
-  String toString() {
-    final monthName =
-        (month >= 1 && month <= 13) ? ethiopianMonthNames[month] : 'ወሩ አይታወቅም';
-    return '$monthName $day, $year ዓ.ም.';
-  }
 
   /// Returns number of days in a given Ethiopian month
   static int getDaysInMonth(int year, int month) {

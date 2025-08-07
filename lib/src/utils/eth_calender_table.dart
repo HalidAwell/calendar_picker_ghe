@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'date_converter.dart'; // your Ethiopian class
-import 'month_utils.dart'; // use this if you define weekday names etc.
+
+import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import 'date_converter.dart';
+import 'month_utils.dart';
 import 'dimension.dart';
 
 class CalendarTableEthiopian extends StatelessWidget {
@@ -8,6 +10,7 @@ class CalendarTableEthiopian extends StatelessWidget {
   final Function(Ethiopian) onDateSelected;
   final int firstYear;
   final int lastYear;
+  final AppLocalizations loc;
 
   const CalendarTableEthiopian({
     super.key,
@@ -15,6 +18,7 @@ class CalendarTableEthiopian extends StatelessWidget {
     required this.onDateSelected,
     required this.firstYear,
     required this.lastYear,
+    required this.loc,
   });
 
   @override
@@ -100,9 +104,10 @@ class CalendarTableEthiopian extends StatelessWidget {
       children: [
         _buildTodayHeader(context, todayEth),
         //const SizedBox(height: 12),
-        _buildMonthNavigation(),
+        _buildMonthNavigation(context),
         const SizedBox(height: Dimen.spacingMedium),
-        _buildWeekdayRow(['እሁ', 'ሰኞ', 'ማክ', 'ረቡ', 'ሐሙ', 'አር', 'ቅዳ']),
+        _buildWeekdayRow(
+            [loc.sun, loc.mon, loc.tue, loc.wed, loc.thu, loc.fri, loc.sat]),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
@@ -137,7 +142,7 @@ class CalendarTableEthiopian extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("የኢትዮጵያ የቀን መምረጫ",
+              Text(loc.ethiopianDatePicker,
                   style: TextStyle(
                     fontSize: Dimen.fBig,
                     fontWeight: FontWeight.bold,
@@ -145,7 +150,7 @@ class CalendarTableEthiopian extends StatelessWidget {
                   )),
             ],
           ),
-          //const SizedBox(height: 5),
+          const SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               if (selectedDate.month != today.month ||
@@ -157,14 +162,15 @@ class CalendarTableEthiopian extends StatelessWidget {
               children: [
                 const Icon(Icons.today, size: 12, color: Colors.white),
                 const SizedBox(width: Dimen.spacingMedium),
-                const Text("ዛሬ:",
+                Text(loc.today,
                     style: TextStyle(
                         fontSize: Dimen.fBig,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 const SizedBox(width: Dimen.spacingMedium),
                 Text(
-                  today.toString(),
+                  formatFullEthiopianDate(loc, today),
+                  //today.toString(),
                   style: const TextStyle(
                       fontSize: Dimen.fBig, color: Colors.white),
                 ),
@@ -175,6 +181,11 @@ class CalendarTableEthiopian extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatFullEthiopianDate(AppLocalizations loc, Ethiopian date) {
+    final month = getLocalizedEthiopianMonthName(loc, date.month);
+    return '$month ${date.day}, ${date.year}';
   }
 
   Widget _buildWeekdayRow(List<String> labels) {
@@ -202,7 +213,7 @@ class CalendarTableEthiopian extends StatelessWidget {
     );
   }
 
-  Widget _buildMonthNavigation() {
+  Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange =
         List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
 
@@ -217,14 +228,18 @@ class CalendarTableEthiopian extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  ethiopianMonthNames[selectedDate.month],
-                  style: const TextStyle(
-                      fontSize: Dimen.fMedium, fontWeight: FontWeight.bold),
+                Flexible(
+                  child: Text(
+                    getLocalizedEthiopianMonthName(loc, selectedDate.month),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: const TextStyle(
+                        fontSize: Dimen.fMedium, fontWeight: FontWeight.bold),
+                  ),
                 ),
                 //const SizedBox(width: Dimen.spacingSmall),
                 SizedBox(
-                  width: 70,
+                  width: 60,
                   height: Dimen.cellSmall,
                   child: buildDropdown<int>(
                     hint: 'አመት',

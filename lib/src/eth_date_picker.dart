@@ -2,6 +2,7 @@ import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:calendar_picker_ghe/src/utils/eth_calender_table.dart';
 import 'package:flutter/material.dart';
 
+import 'package:calendar_picker_ghe/service/app_localizations.dart';
 import '../src/utils/dimension.dart';
 
 Future<Ethiopian?> ethiopianDatePicker({
@@ -9,9 +10,10 @@ Future<Ethiopian?> ethiopianDatePicker({
   required int initialYear,
   required int firstYear,
   required int lastYear,
+  String locale = 'en',
 }) async {
   Ethiopian tempSelected = Ethiopian(initialYear, 1, 1);
-
+  final loc = AppLocalizations(Locale(locale));
   return showDialog<Ethiopian>(
     context: context,
     builder: (BuildContext context) {
@@ -34,6 +36,7 @@ Future<Ethiopian?> ethiopianDatePicker({
                     onDateSelected: (newDate) {
                       setState(() => tempSelected = newDate);
                     },
+                    loc: loc,
                   ),
                   //const SizedBox(height: 10),
                   Row(
@@ -41,12 +44,12 @@ Future<Ethiopian?> ethiopianDatePicker({
                     children: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, null),
-                        child: const Text("ሰርዝ"),
+                        child: Text(loc.cancel),
                       ),
                       const SizedBox(width: Dimen.spacingMedium),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, tempSelected),
-                        child: const Text("እሺ"),
+                        child: Text(loc.ok),
                       ),
                       const SizedBox(width: Dimen.spacingMedium),
                     ],

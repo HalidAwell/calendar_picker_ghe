@@ -15,30 +15,36 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 - 🔁 Easy month/year navigation via dropdowns and arrows
 - ✅ Highlights for today’s date and selected date
 - 📆 Configurable year range: `firstYear`, `lastYear`, and `initialYear`
+- 🌐 Multilingual support: English (default), Amharic, Arabic
 - 🎯 Unified function: `showUnifiedDatePicker(...)`
 - 🌍 Clean, extensible codebase for integrating other calendars
-- Responsive for small devices
+- 📱 Responsive for small and large screens
+
 ---
 
 ## 📸 Screenshots
 
-### 📅 Gregorian Calendar
+### 🇬🇧 English
 
-| On Small Screen                                       | On Big Screen                                      |
-|-------------------------------------------------------|----------------------------------------------------|
-| ![Gregorian Table](assets/screenshots/grigSmall2.PNG) | ![Gregorian Year](assets/screenshots/grigBig2.PNG) |
+| Gregorian                                           | Ethiopian                                          | Hijri                                            |
+|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
+| ![Gregorian English](assets/screenshots/grigen.PNG) | ![Ethiopian English](assets/screenshots/ethen.PNG) | ![Hijri English](assets/screenshots/hijrien.PNG) |
 
-### 🗿 Ethiopian Calendar
+---
 
-| On Small Screen                                      | On Big Screen                                     |
-|------------------------------------------------------|---------------------------------------------------|
-| ![Ethiopian Table](assets/screenshots/ethSmall2.PNG) | ![Ethiopian Year](assets/screenshots/ethBig2.PNG) |
+### 🇪🇹 Amharic
 
-### 🌙 Hijri Calendar
+| Gregorian                                           | Ethiopian                                          | Hijri                                            |
+|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
+| ![Gregorian Amharic](assets/screenshots/grigam.PNG) | ![Ethiopian Amharic](assets/screenshots/etham.PNG) | ![Hijri Amharic](assets/screenshots/hijriam.PNG) |
 
-| On Small Screen                                    | On Big Screen                                   |
-|----------------------------------------------------|-------------------------------------------------|
-| ![Hijri Table](assets/screenshots/hijriSmall2.PNG) | ![Hijri Year](assets/screenshots/hijriBig2.PNG) |
+---
+
+### 🇸🇦 Arabic
+
+| Gregorian                                          | Ethiopian                                         | Hijri                                           |
+|----------------------------------------------------|---------------------------------------------------|-------------------------------------------------|
+| ![Gregorian Arabic](assets/screenshots/grigar.PNG) | ![Ethiopian Arabic](assets/screenshots/ethar.PNG) | ![Hijri Arabic](assets/screenshots/hijriar.PNG) |
 
 ---
 
@@ -55,49 +61,160 @@ This will add the following line to your pubspec.yaml and fetch the package:
 
 ```yaml
 dependencies:
-calendar_picker_ghe: ^1.0.0
+calendar_picker_ghe: ^2.0.0
 ```
 ### 📥 Import the Package
-In your Dart file:
 
-```
+```dart
 import 'package:calendar_picker_ghe/calendar_picker.dart';
 ```
-Alternatively, add the dependency manually in pubspec.yaml and run flutter pub get.
-
 ### 🧪 Usage
+
 <pre lang="markdown"> 
-
-import 'package:calendar_picker_ghe/calendar_picker.dart';
-
 final pickedDate = await showUnifiedDatePicker(
+context: context,
+calendarType: CalendarType.ethiopian, // or .hijri / .gregorian
+initialYear: 2015,
+firstYear: 2000,
+lastYear: 2030,
+);
+</pre>
+
+### 🧭 Full Function Signature
+
+``` dart
+Future<dynamic> showUnifiedDatePicker({
+  required BuildContext context,
+  required CalendarType calendarType,
+  required int initialYear,
+  required int firstYear,
+  required int lastYear,
+  String locale = 'en', // Optional: 'en', 'am', or 'ar'
+});
+
+```
+### 📘 Field Descriptions
+
+| Parameter      | Type           | Required | Default | Description                                                       |
+|----------------|----------------|----------|---------|-------------------------------------------------------------------|
+| `context`      | `BuildContext` | ✅ Yes    | –       | The build context from which the date picker will be shown.       |
+| `calendarType` | `CalendarType` | ✅ Yes    | –       | The calendar system to use: `gregorian`, `ethiopian`, or `hijri`. |
+| `initialYear`  | `int`          | ✅ Yes    | –       | The year that will be initially displayed when the picker opens.  |
+| `firstYear`    | `int`          | ✅ Yes    | –       | The earliest year a user can navigate to and select.              |
+| `lastYear`     | `int`          | ✅ Yes    | –       | The latest year a user can navigate to and select.                |
+| `locale`       | `String`       | ❌ No     | `'en'`  | Language: `'en'` (English), `'am'` (Amharic), or `'ar'` (Arabic)  |
+
+### 🌐 Locale Options
+By default, the date picker uses English. Use the locale parameter to switch language:
+
+| Locale | Language          |
+|--------|-------------------|
+| `'en'` | English (default) |
+| `'am'` | Amharic           |
+| `'ar'` | Arabic            |
+
+### ✅ Usage Examples (All 9 Possibilities)
+
+<pre lang="markdown">
+// Gregorian - English (default)
+await showUnifiedDatePicker(
   context: context,
-  calendarType: CalendarType.ethiopian, // or CalendarType.hijri / .gregorian
-  initialYear: 2015,
-  firstYear: 2000,
-  lastYear: 2030,
+  calendarType: CalendarType.gregorian,
+  initialYear: DateTime.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+);
+
+// Gregorian - Amharic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.gregorian,
+  initialYear: DateTime.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+  locale: 'am',
+);
+
+// Gregorian - Arabic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.gregorian,
+  initialYear: DateTime.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+  locale: 'ar',
+);
+
+// Ethiopian - English
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.ethiopian,
+  initialYear: Ethiopian.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+);
+
+// Ethiopian - Amharic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.ethiopian,
+  initialYear: Ethiopian.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+  locale: 'am',
+);
+
+// Ethiopian - Arabic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.ethiopian,
+  initialYear: Ethiopian.now().year,
+  firstYear: 1900,
+  lastYear: 2100,
+  locale: 'ar',
+);
+
+// Hijri - English
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.hijri,
+  initialYear: Hijri.now().year,
+  firstYear: 1358,
+  lastYear: 1500,
+);
+
+// Hijri - Amharic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.hijri,
+  initialYear: Hijri.now().year,
+  firstYear: 1358,
+  lastYear: 1500,
+  locale: 'am',
+);
+
+// Hijri - Arabic
+await showUnifiedDatePicker(
+  context: context,
+  calendarType: CalendarType.hijri,
+  initialYear: Hijri.now().year,
+  firstYear: 1358,
+  lastYear: 1500,
+  locale: 'ar',
 );
 
 </pre>
-The calendarType can be one of: CalendarType.gregorian, CalendarType.hijri, or CalendarType.ethiopian.
 
-initialYear, firstYear, and lastYear define the visible year range and default year in the dropdown.
+### 📘 Notes
+To set the initial year dynamically:
 
-To set the initialYear to today’s year:
+<pre lang="markdown">
 
-<pre lang="markdown"> 
-
-initialYear: DateTime.now().year, // Gregorian calendar
-
-</pre>
-For Hijri and Ethiopian calendars, use:
-<pre lang="markdown"> 
-
-initialYear: Hijri.now().year,     // Hijri calendar
-initialYear: Ethiopian.now().year, // Ethiopian calendar
+initialYear: DateTime.now().year, // Gregorian
+initialYear: Hijri.now().year,    // Hijri (requires Hijri converter)
+initialYear: Ethiopian.now().year, // Ethiopian (requires Ethiopian converter)
 
 </pre>
-(Requires appropriate date converter utilities from calendar_converter.dart)
 
 ### 📝 License
 This project is licensed under the terms of the [Apache License 2.0](LICENSE).
@@ -105,4 +222,4 @@ This project is licensed under the terms of the [Apache License 2.0](LICENSE).
 ### 📬 Contact
 For questions, feedback, or contributions:
 
-### 📧 Email: halidawell00@gmail.com
+📧 Email: halidawell00@gmail.com

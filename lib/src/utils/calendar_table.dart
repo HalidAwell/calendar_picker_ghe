@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:calendar_picker_ghe/service/app_localizations.dart';
 import 'month_utils.dart';
 import 'dimension.dart';
 
@@ -7,12 +8,15 @@ class CalendarTableGregorian extends StatelessWidget {
   final Function(DateTime) onDateSelected;
   final int firstYear;
   final int lastYear;
+  final AppLocalizations loc; // <- Add this
+
   const CalendarTableGregorian({
     super.key,
     required this.selectedDate,
     required this.firstYear,
     required this.lastYear,
     required this.onDateSelected,
+    required this.loc, // <- Required
   });
 
   @override
@@ -83,10 +87,11 @@ class CalendarTableGregorian extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildTodayHeader(context, today),
-        //const SizedBox(height: Dimen.spacingMedium),
-        _buildMonthNavigation(),
         const SizedBox(height: Dimen.spacingMedium),
-        _buildWeekdayRow(['S', 'M', 'T', 'W', 'T', 'F', 'S']),
+        _buildMonthNavigation(context),
+        const SizedBox(height: Dimen.spacingMedium),
+        _buildWeekdayRow(
+            [loc.sun, loc.mon, loc.tue, loc.wed, loc.thu, loc.fri, loc.sat]),
         Table(
           border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
           children: List.generate(6, (week) {
@@ -121,15 +126,15 @@ class CalendarTableGregorian extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text("Gregorian Date Picker",
+              Text(loc.gregorianDatePicker,
                   style: TextStyle(
-                      fontSize: Dimen.fBig,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontStyle: FontStyle.italic)),
+                    fontSize: Dimen.fBig,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  )),
             ],
           ),
-          //const SizedBox(height: 5),
+          const SizedBox(height: 10),
           GestureDetector(
             onTap: () {
               if (selectedDate.month != today.month ||
@@ -141,7 +146,7 @@ class CalendarTableGregorian extends StatelessWidget {
               children: [
                 const Icon(Icons.today, size: 12, color: Colors.white),
                 const SizedBox(width: Dimen.spacingMedium),
-                const Text("Today:",
+                Text(loc.today,
                     style: TextStyle(
                         fontSize: Dimen.fBig,
                         fontWeight: FontWeight.bold,
@@ -162,17 +167,8 @@ class CalendarTableGregorian extends StatelessWidget {
   }
 
   String _formatFullDate(DateTime date) {
-    /*const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday'
-    ];*/
-    //${days[date.weekday % 7]},
-    return ' ${monthNames[date.month]} ${date.day}, ${date.year}';
+    final localizedMonth = getLocalizedMonthName(loc, date.month);
+    return '$localizedMonth ${date.day}, ${date.year}';
   }
 
   bool _isSameDate(DateTime a, DateTime b) =>
@@ -192,7 +188,7 @@ class CalendarTableGregorian extends StatelessWidget {
             child: Text(
               labels[i],
               style: TextStyle(
-                fontSize: Dimen.fBig,
+                fontSize: Dimen.fSmall,
                 fontWeight: FontWeight.bold,
                 color: i == 0 ? Colors.red : Colors.black,
               ),
@@ -203,12 +199,11 @@ class CalendarTableGregorian extends StatelessWidget {
     );
   }
 
-  Widget _buildMonthNavigation() {
+  Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
       (index) => firstYear + index,
     );
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -220,9 +215,13 @@ class CalendarTableGregorian extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('${monthNames[selectedDate.month]}',
-                    style: const TextStyle(
-                        fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
+                Flexible(
+                  child: Text(getLocalizedMonthName(loc, selectedDate.month),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: const TextStyle(
+                          fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
+                ),
                 //const SizedBox(width: Dimen.spacingSmall),
                 SizedBox(
                   width: 60,

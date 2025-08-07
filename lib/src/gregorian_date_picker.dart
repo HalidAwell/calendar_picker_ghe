@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:calendar_picker_ghe/service/app_localizations.dart';
 import './utils/calendar_table.dart';
 import '../src/utils/dimension.dart';
 
@@ -7,10 +9,10 @@ Future<DateTime?> gregorianDatePicker({
   required int initialYear,
   required int firstYear,
   required int lastYear,
+  String locale = 'en', // <-- add this
 }) async {
-  // Here is intialYear needed
   DateTime tempSelected = DateTime(initialYear, 1, 1);
-
+  final loc = AppLocalizations(Locale(locale));
   return showDialog<DateTime>(
     context: context,
     builder: (BuildContext context) {
@@ -33,18 +35,19 @@ Future<DateTime?> gregorianDatePicker({
                     onDateSelected: (newDate) {
                       setState(() => tempSelected = newDate);
                     },
+                    loc: loc,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, null),
-                        child: const Text("Cancel"),
+                        child: Text(loc.cancel),
                       ),
                       const SizedBox(width: Dimen.spacingMedium),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, tempSelected),
-                        child: const Text("OK"),
+                        child: Text(loc.ok),
                       ),
                       const SizedBox(width: Dimen.spacingMedium),
                     ],

@@ -7,6 +7,7 @@ Future<dynamic> showUnifiedDatePicker({
   required int initialYear,
   required int firstYear,
   required int lastYear,
+  String locale = 'en', // <-- add locale here
 }) {
   switch (calendarType) {
     case CalendarType.gregorian:
@@ -15,6 +16,7 @@ Future<dynamic> showUnifiedDatePicker({
         initialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
+        locale: locale, // <-- pass locale
       );
     case CalendarType.hijri:
       return hijriDatePicker(
@@ -22,6 +24,7 @@ Future<dynamic> showUnifiedDatePicker({
         intialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
+        locale: locale, // <-- pass locale
       );
     case CalendarType.ethiopian:
       return ethiopianDatePicker(
@@ -29,6 +32,7 @@ Future<dynamic> showUnifiedDatePicker({
         initialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
+        locale: locale, // <-- pass locale
       );
   }
 }
