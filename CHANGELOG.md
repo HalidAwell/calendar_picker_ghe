@@ -1,7 +1,16 @@
-## 2.0.0
+## [2.0.0] - 2025-08-07
+### Added
+- New screenshot images for Amharic, Arabic, and English date pickers.
+- Refactored localization logic (`app_localizations.dart` and `localization_service.dart`).
+- Cleaned up unnecessary braces in string interpolation.
+- Added support for multi-platform localization (Windows, macOS, Linux).
 
-  - Support English, Amharic, and Arabic language
-  - Update text formatting
+### Changed
+- Updated structure of date picker widgets.
+
+### Fixed
+- Bug fixes and performance improvements.
+
 
 ## 1.1.3
   - Fix documentation
