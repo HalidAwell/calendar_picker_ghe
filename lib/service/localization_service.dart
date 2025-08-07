@@ -1,4 +1,13 @@
+/// Provides localized string values for multiple languages.
+///
+/// This class supports English (`en`), Amharic (`am`), and Arabic (`ar`),
+/// and is used by [AppLocalizations] to fetch localized strings.
 class LocalizedStrings {
+  /// A map containing localized values for supported languages.
+  ///
+  /// The outer map's key is the language code (`en`, `am`, `ar`), and the inner
+  /// map contains key-value pairs for string identifiers and their translations.
+
   static const _localizedValues = {
     'en': {
       "january": "January",
@@ -157,6 +166,15 @@ class LocalizedStrings {
       "cancel": "إِلْغَاء",
     },
   };
+  /// Retrieves the localized string for the given [langCode] and [key].
+  ///
+  /// If the string is not found for the given [langCode], it falls back to English (`en`).
+  /// If it is also not found in English, it returns the [key] itself.
+  ///
+  /// Example:
+  /// ```dart
+  /// final label = LocalizedStrings.get('am', 'january'); // returns 'ጃንዋሪ'
+  /// ```
   static String get(String langCode, String key) {
     return _localizedValues[langCode]?[key] ??
         _localizedValues['en']?[key] ??
