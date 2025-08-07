@@ -1,3 +1,5 @@
+## [2.0.1] - 2025-08-07
+- Fix Screenshots
 ## [2.0.0] - 2025-08-07
 ### Added
 - New screenshot images for Amharic, Arabic, and English date pickers.
