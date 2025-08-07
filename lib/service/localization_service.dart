@@ -166,6 +166,7 @@ class LocalizedStrings {
       "cancel": "إِلْغَاء",
     },
   };
+
   /// Retrieves the localized string for the given [langCode] and [key].
   ///
   /// If the string is not found for the given [langCode], it falls back to English (`en`).

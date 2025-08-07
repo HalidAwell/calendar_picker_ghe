@@ -1,6 +1,8 @@
-## [2.0.1] - 2025-08-07
+## 2.0.2
+- follow dart formattng
+## 2.0.1
 - Fix Screenshots (use )
-## [2.0.0] - 2025-08-07
+## 2.0.0 
 ### Added
 - New screenshot images for Amharic, Arabic, and English date pickers.
 - Refactored localization logic (`app_localizations.dart` and `localization_service.dart`).
