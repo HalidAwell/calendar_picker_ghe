@@ -24,21 +24,29 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 ## 📸 Screenshots
 
-### Ethiopian Date Picker
-![Ethiopian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/etham.PNG)
-![Ethiopian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/ethar.PNG)
-![Ethiopian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/ethen.PNG)
+### 🇬🇧 English
 
-### Gregorian Date Picker
-![Gregorian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/grigam.PNG)
-![Gregorian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/grigar.PNG)
-![Gregorian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/grigen.PNG)
+| Gregorian                                           | Ethiopian                                          | Hijri                                            |
+|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
+| ![Gregorian English](assets/screenshots/grigen.PNG) | ![Ethiopian English](assets/screenshots/ethen.PNG) | ![Hijri English](assets/screenshots/hijrien.PNG) |
 
-### Hijri Date Picker
-![Hijri Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/hijriam.PNG)
-![Hijri Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/hijriar.PNG)
-![Hijri English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/main/assets/screenshots/hijrien.PNG)
+---
 
+### 🇪🇹 Amharic
+
+| Gregorian                                           | Ethiopian                                          | Hijri                                            |
+|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
+| ![Gregorian Amharic](assets/screenshots/grigam.PNG) | ![Ethiopian Amharic](assets/screenshots/etham.PNG) | ![Hijri Amharic](assets/screenshots/hijriam.PNG) |
+
+---
+
+### 🇸🇦 Arabic
+
+| Gregorian                                          | Ethiopian                                         | Hijri                                           |
+|----------------------------------------------------|---------------------------------------------------|-------------------------------------------------|
+| ![Gregorian Arabic](assets/screenshots/grigar.PNG) | ![Ethiopian Arabic](assets/screenshots/ethar.PNG) | ![Hijri Arabic](assets/screenshots/hijriar.PNG) |
+
+---
 
 ## 🚀 Getting Started
 
