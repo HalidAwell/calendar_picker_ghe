@@ -26,25 +26,25 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 ### 🇬🇧 English
 
-| Gregorian                                           | Ethiopian                                          | Hijri                                            |
-|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
-| ![Gregorian English](assets/screenshots/grigen.PNG) | ![Ethiopian English](assets/screenshots/ethen.PNG) | ![Hijri English](assets/screenshots/hijrien.PNG) |
+| Gregorian                                                                                                         | Ethiopian                                                                                                        | Hijri                                                                                                          |
+|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ![Gregorian English](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/grigen.PNG) | ![Ethiopian English](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/ethen.PNG) | ![Hijri English](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/hijrien.PNG) |
 
 ---
 
 ### 🇪🇹 Amharic
 
-| Gregorian                                           | Ethiopian                                          | Hijri                                            |
-|-----------------------------------------------------|----------------------------------------------------|--------------------------------------------------|
-| ![Gregorian Amharic](assets/screenshots/grigam.PNG) | ![Ethiopian Amharic](assets/screenshots/etham.PNG) | ![Hijri Amharic](assets/screenshots/hijriam.PNG) |
+| Gregorian                                                                                                         | Ethiopian                                                                                                        | Hijri                                                                                                          |
+|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ![Gregorian Amharic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/grigam.PNG) | ![Ethiopian Amharic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/etham.PNG) | ![Hijri Amharic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/hijriam.PNG) |
 
 ---
 
 ### 🇸🇦 Arabic
 
-| Gregorian                                          | Ethiopian                                         | Hijri                                           |
-|----------------------------------------------------|---------------------------------------------------|-------------------------------------------------|
-| ![Gregorian Arabic](assets/screenshots/grigar.PNG) | ![Ethiopian Arabic](assets/screenshots/ethar.PNG) | ![Hijri Arabic](assets/screenshots/hijriar.PNG) |
+| Gregorian                                                                                                        | Ethiopian                                                                                                       | Hijri                                                                                                         |
+|------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
+| ![Gregorian Arabic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/grigar.PNG) | ![Ethiopian Arabic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/ethar.PNG) | ![Hijri Arabic](https://github.com/HalidAwell/calendar_picker_ghe/blob/v2.0.0/assets/screenshots/hijriar.PNG) |
 
 ---
 
@@ -70,7 +70,8 @@ import 'package:calendar_picker_ghe/calendar_picker.dart';
 ```
 ### 🧪 Usage
 
-<pre lang="markdown"> 
+``` markdown
+```dart 
 final pickedDate = await showUnifiedDatePicker(
 context: context,
 calendarType: CalendarType.ethiopian, // or .hijri / .gregorian
@@ -78,7 +79,8 @@ initialYear: 2015,
 firstYear: 2000,
 lastYear: 2030,
 );
-</pre>
+```
+```
 
 ### 🧭 Full Function Signature
 
