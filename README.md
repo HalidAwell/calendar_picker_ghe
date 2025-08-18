@@ -28,7 +28,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 | Gregorian                                                                                                                        | Ethiopian                                              | Hijri                                                 |
 |----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|-------------------------------------------------------|
-| ![Gregorian English](assets/screenshots/v200/grigen.PNG) | ![Ethiopian English](assets/screenshots/v200/eten.PNG) | ![Hijri English](assets/screenshots/v200/hijrien.PNG) |
+| ![Gregorian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/grigen.PNG) | ![Ethiopian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/eten.PNG) | ![Hijri English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/hijrien.PNG) |
 
 ---
 
@@ -36,7 +36,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 | Gregorian                                                | Ethiopian                                              | Hijri                                                 |
 |----------------------------------------------------------|--------------------------------------------------------|-------------------------------------------------------|
-| ![Gregorian Amharic](assets/screenshots/v200/grigam.PNG) | ![Ethiopian Amharic](assets/screenshots/v200/etam.PNG) | ![Hijri Amharic](assets/screenshots/v200/hijriam.PNG) |
+| ![Gregorian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/grigam.PNG) | ![Ethiopian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/etam.PNG) | ![Hijri Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_ghe/v2.1.0/assets/screenshots/v200/hijriam.PNG) |
 
 ---
 
