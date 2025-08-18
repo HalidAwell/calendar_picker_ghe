@@ -2,7 +2,7 @@ import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:calendar_picker_ghe/src/utils/eth_calender_table.dart';
 import 'package:flutter/material.dart';
 
-import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import '../src/service/app_localizations.dart';
 import '../src/utils/dimension.dart';
 
 Future<Ethiopian?> ethiopianDatePicker({

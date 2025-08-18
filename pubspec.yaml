@@ -1,9 +1,8 @@
 name: calendar_picker_ghe
 description: A lightweight Gregorian, Hijri, and Ethiopian Calendar date picker which is simple to use with a unified system.
-version: 2.0.2
+version: 2.1.0
 homepage: https://github.com/HalidAwell/calendar_picker_ghe
 repository: https://github.com/HalidAwell/calendar_picker_ghe
-issue_tracker: https://github.com/HalidAwell/calendar_picker_ghe/issues
 
 environment:
   sdk: ">=2.17.0 <4.0.0"

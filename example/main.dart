@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: DateTime.now().year,
                   firstYear: 1900,
                   lastYear: 2100,
-                  locale: 'ar',
+                  //locale: 'en',
                 );
                 if (result != null) {
                   setState(() {
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: Ethiopian.now().year,
                   firstYear: 1900,
                   lastYear: 2100,
-                  locale: 'ar',
+                  locale: 'am',
                 );
                 if (result != null) {
                   setState(() {
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
             // Display selected Hijri date
             if (selectedHDate != null)
               Text(
-                "Selected: ${selectedHDate.toString()}",
+                "Selected: ${selectedHDate?.day}-${selectedHDate?.month}-${selectedHDate?.year} H.",
                 style: const TextStyle(fontSize: 16),
               ),
 
@@ -122,7 +122,7 @@ class _HomePageState extends State<HomePage> {
             // Display selected Ethiopian date
             if (selectedEDate != null)
               Text(
-                "Selected: ${selectedEDate.toString()}",
+                "Selected: ${selectedEDate?.day}-${selectedEDate?.month}-${selectedEDate?.year} E.C.",
                 style: const TextStyle(fontSize: 16),
               ),
           ],

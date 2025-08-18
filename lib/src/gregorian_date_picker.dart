@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import '../src/service/app_localizations.dart';
 import './utils/calendar_table.dart';
 import '../src/utils/dimension.dart';
 

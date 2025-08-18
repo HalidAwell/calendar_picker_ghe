@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../service/app_localizations.dart';
+import 'package:calendar_picker_ghe/src/service/app_localizations.dart';
 
 /// Returns the localized Gregorian month name by 1-based index (1–12)
 String getLocalizedMonthName(AppLocalizations loc, int monthIndex) {

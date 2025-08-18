@@ -1,3 +1,6 @@
+## 2.1.0
+- code refactor
+- make selected code to be shown in circle
 ## 2.0.2
 - follow dart formattng
 ## 2.0.1

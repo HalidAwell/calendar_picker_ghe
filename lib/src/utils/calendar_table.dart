@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import 'package:calendar_picker_ghe/src/service/app_localizations.dart';
 import 'month_utils.dart';
 import 'dimension.dart';
 
@@ -56,7 +56,8 @@ class CalendarTableGregorian extends StatelessWidget {
                       : isWeekend
                           ? Colors.orange[100]
                           : null,
-              borderRadius: BorderRadius.circular(3),
+              //borderRadius: BorderRadius.circular(3),
+              shape: BoxShape.circle, //: BoxShape.rectangle,
               border: Border.all(
                 color: isToday || isSelected ? Colors.teal : Colors.transparent,
               ),

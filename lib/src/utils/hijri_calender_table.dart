@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import 'package:calendar_picker_ghe/src/service/app_localizations.dart';
 import 'date_converter.dart';
 import 'month_utils.dart';
 import 'dimension.dart';
@@ -75,7 +75,8 @@ class CalendarTableHijri extends StatelessWidget {
                       : hijriDate.isWeekend()
                           ? Colors.orange[100]
                           : null,
-              borderRadius: BorderRadius.circular(6),
+              //borderRadius: BorderRadius.circular(6),
+              shape: BoxShape.circle,
               border: Border.all(
                 color: isToday || isSelected ? Colors.teal : Colors.transparent,
               ),

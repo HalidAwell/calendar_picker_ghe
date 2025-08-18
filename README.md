@@ -3,8 +3,8 @@
 A lightweight, customizable Flutter date picker supporting:
 
 - 🗓️ **Gregorian Calendar**
-- 🌙 **Hijri (Islamic) Calendar**
-- 🗿 **Ethiopian Calendar**
+- 🕌 **Hijri Calendar**
+- 🌍 **Ethiopian Calendar**
 
 Easily switch between calendars using a **unified API** with a clean, customizable dialog interface.
 
@@ -61,7 +61,7 @@ This will add the following line to your pubspec.yaml and fetch the package:
 
 ```yaml
 dependencies:
-calendar_picker_ghe: ^2.0.2
+calendar_picker_ghe: ^2.1.0
 ```
 ### 📥 Import the Package
 

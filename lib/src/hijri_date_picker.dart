@@ -1,7 +1,6 @@
 import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:flutter/material.dart';
-
-import 'package:calendar_picker_ghe/service/app_localizations.dart';
+import '../src/service/app_localizations.dart';
 import './utils/hijri_calender_table.dart';
 import '../src/utils/dimension.dart';
 
