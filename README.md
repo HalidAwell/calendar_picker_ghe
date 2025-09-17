@@ -42,9 +42,9 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 ### 🇸🇦 Arabic
 
-| Gregorian                                               | Ethiopian                                             | Hijri                                                |
-|---------------------------------------------------------|-------------------------------------------------------|------------------------------------------------------|
-| ![Gregorian Arabic](assets/screenshots/v211/grigar.PNG) | ![Ethiopian Arabic](assets/screenshots/v211/etar.PNG) | ![Hijri Arabic](assets/screenshots/v211/hijriar.PNG) |
+| Gregorian                                               | Ethiopian                                              | Hijri                                                |
+|---------------------------------------------------------|--------------------------------------------------------|------------------------------------------------------|
+| ![Gregorian Arabic](assets/screenshots/v211/grigar.PNG) | ![Ethiopian Arabic](assets/screenshots/v211/ethar.PNG) | ![Hijri Arabic](assets/screenshots/v211/hijriar.PNG) |
 
 ---
 
