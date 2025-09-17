@@ -1,3 +1,5 @@
+## 2.1.2
+- dart formated
 ## 2.1.1
 - use initial initialVaulue instead of value
 - make selected date in bigger circle
