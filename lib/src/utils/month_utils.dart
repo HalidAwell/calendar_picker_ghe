@@ -102,8 +102,7 @@ Widget buildDropdown<T>({
   required List<T> items,
   required void Function(T?) onChanged,
 }) {
-  return
-    SizedBox(
+  return SizedBox(
     width: 70,
     child: DropdownButtonFormField<T>(
       isExpanded: true,

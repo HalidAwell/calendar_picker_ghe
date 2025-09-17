@@ -245,7 +245,9 @@ class CalendarTableHijri extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: Dimen.cellSmall,),
+                const SizedBox(
+                  width: Dimen.cellSmall,
+                ),
                 SizedBox(
                   width: 70,
                   height: Dimen.cellSmall,
