@@ -66,7 +66,7 @@ class CalendarTableHijri extends StatelessWidget {
                         day: day),
                   ),
           child: Container(
-            margin: const EdgeInsets.all(3),
+            //margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
@@ -245,8 +245,9 @@ class CalendarTableHijri extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: Dimen.cellSmall,),
                 SizedBox(
-                  width: 60,
+                  width: 70,
                   height: Dimen.cellSmall,
                   child: buildDropdown<int>(
                     hint: 'Year',

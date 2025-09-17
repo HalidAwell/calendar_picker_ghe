@@ -1,3 +1,6 @@
+## 2.1.1
+- use initial initialVaulue instead of value
+- make selected date in bigger circle
 ## 2.1.0
 - code refactor
 - make selected code to be shown in circle

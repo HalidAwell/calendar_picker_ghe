@@ -102,14 +102,15 @@ Widget buildDropdown<T>({
   required List<T> items,
   required void Function(T?) onChanged,
 }) {
-  return SizedBox(
-    width: 60,
+  return
+    SizedBox(
+    width: 70,
     child: DropdownButtonFormField<T>(
       isExpanded: true,
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
       ),
       dropdownColor: Colors.white,

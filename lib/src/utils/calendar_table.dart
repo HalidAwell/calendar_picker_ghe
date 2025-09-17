@@ -47,7 +47,7 @@ class CalendarTableGregorian extends StatelessWidget {
           //onTap: () => onDateSelected(dayDate),
           onTap: isDisabled ? null : () => onDateSelected(dayDate),
           child: Container(
-            margin: const EdgeInsets.all(3),
+            //margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
@@ -223,9 +223,9 @@ class CalendarTableGregorian extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
                 ),
-                //const SizedBox(width: Dimen.spacingSmall),
+                const SizedBox(width: Dimen.spacingSmall),
                 SizedBox(
-                  width: 60,
+                  width: 70,
                   height: Dimen.cellSmall,
                   child: buildDropdown<int>(
                     hint: 'Year',

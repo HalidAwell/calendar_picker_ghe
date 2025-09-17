@@ -64,7 +64,7 @@ class CalendarTableEthiopian extends StatelessWidget {
                     Ethiopian(selectedDate.year, selectedDate.month, day),
                   ),
           child: Container(
-            margin: const EdgeInsets.all(3),
+            //margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
@@ -238,9 +238,9 @@ class CalendarTableEthiopian extends StatelessWidget {
                         fontSize: Dimen.fMedium, fontWeight: FontWeight.bold),
                   ),
                 ),
-                //const SizedBox(width: Dimen.spacingSmall),
+                const SizedBox(width: Dimen.spacingSmall),
                 SizedBox(
-                  width: 60,
+                  width: 70,
                   height: Dimen.cellSmall,
                   child: buildDropdown<int>(
                     hint: 'አመት',
