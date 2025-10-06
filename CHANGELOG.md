@@ -1,3 +1,5 @@
+## 2.1.4
+- remove asset
 ## 2.1.3
 - update screenshot
 ## 2.1.2
