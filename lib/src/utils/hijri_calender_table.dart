@@ -227,7 +227,7 @@ class CalendarTableHijri extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
-          width: 32, // fixed compact width
+          width: 50, // fixed compact width
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -281,7 +281,7 @@ class CalendarTableHijri extends StatelessWidget {
 
         //const SizedBox(width: Dimen.spacingSmall),
         SizedBox(
-          width: 32, // fixed compact width
+          width: 50, // fixed compact width
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

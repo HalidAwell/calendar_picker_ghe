@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                   initialYear: Hijri.now().year,
                   firstYear: 1358, // Roughly equivalent to 1940s
                   lastYear: 1500,
-                  locale: 'am',
+                  locale: 'ar',
                 );
                 if (result != null) {
                   setState(() {

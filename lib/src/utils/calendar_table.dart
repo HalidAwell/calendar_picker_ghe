@@ -207,13 +207,13 @@ class CalendarTableGregorian extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child:
       Row(
         children: [
           // Left arrow group
           SizedBox(
-            width: 32, // fixed compact width
+            width: 50, // fixed compact width
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -259,7 +259,7 @@ class CalendarTableGregorian extends StatelessWidget {
 
           // Right arrow group
           SizedBox(
-            width: 32, // fixed compact width
+            width: 50, // fixed compact width
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
