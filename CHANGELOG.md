@@ -1,3 +1,5 @@
+## 2.1.6
+- update month name
 ## 2.1.5
 - update month selector
 ## 2.1.4

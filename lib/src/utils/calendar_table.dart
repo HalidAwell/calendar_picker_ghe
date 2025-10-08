@@ -203,31 +203,40 @@ class CalendarTableGregorian extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-      (index) => firstYear + index,
+          (index) => firstYear + index,
     );
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
-            const SizedBox(width: 2),
-            _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-          ],
-        ),
-        //const SizedBox(width: Dimen.spacingSmall),
-        Expanded(
-          child: Center(
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+      child:
+      Row(
+        children: [
+          // Left arrow group
+          SizedBox(
+            width: 40, // fixed compact width
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Flexible(
-                  child: Text(getLocalizedMonthName(loc, selectedDate.month),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(
-                          fontSize: Dimen.fSmall, fontWeight: FontWeight.bold)),
+                _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
+                _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+              ],
+            ),
+          ),
+
+          // Middle: month + year
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  getLocalizedMonthName(loc, selectedDate.month),
+                  textAlign: TextAlign.center,
+                  softWrap: false,
+                  overflow: TextOverflow.visible,
+                  style: const TextStyle(
+                    fontSize: Dimen.fBig,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(width: Dimen.spacingSmall),
                 SizedBox(
@@ -247,17 +256,20 @@ class CalendarTableGregorian extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        //const SizedBox(width: Dimen.spacingSmall),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
-            const SizedBox(width: 2),
-            _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
-          ],
-        ),
-      ],
+
+          // Right arrow group
+          SizedBox(
+            width: 40, // fixed compact width
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
+                _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

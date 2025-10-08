@@ -61,7 +61,7 @@ This will add the following line to your pubspec.yaml and fetch the package:
 
 ```yaml
 dependencies:
-calendar_picker_ghe: ^2.1.5
+calendar_picker_ghe: ^2.1.6
 ```
 ### 📥 Import the Package
 
