@@ -207,66 +207,69 @@ class CalendarTableGregorian extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child:
-      Row(
+      Column(
         children: [
+          //year drop down
+          SizedBox(
+            width: 70,
+            height: Dimen.cellSmall,
+            child: buildDropdown<int>(
+              hint: 'Year',
+              value: selectedDate.year,
+              items: yearRange,
+              onChanged: (year) {
+                if (year != null) {
+                  onDateSelected(DateTime(year, selectedDate.month, 1));
+                }
+              },
+            ),
+          ),
           // Left arrow group
-          SizedBox(
-            width: 50, // fixed compact width
-            child: Row(
-             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
-                _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-              ],
-            ),
-          ),
-
-          // Middle: month + year
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  getLocalizedMonthName(loc, selectedDate.month),
-                  textAlign: TextAlign.center,
-                  softWrap: false,
-                  overflow: TextOverflow.visible,
-                  style: const TextStyle(
-                    fontSize: Dimen.fBig,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Row(
+            children: [
+              SizedBox(
+                width: 50, // fixed compact width
+                child: Row(
+                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
+                    _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+                  ],
                 ),
-                const SizedBox(width: Dimen.spacingSmall),
-                SizedBox(
-                  width: 70,
-                  height: Dimen.cellSmall,
-                  child: buildDropdown<int>(
-                    hint: 'Year',
-                    value: selectedDate.year,
-                    items: yearRange,
-                    onChanged: (year) {
-                      if (year != null) {
-                        onDateSelected(DateTime(year, selectedDate.month, 1));
-                      }
-                    },
-                  ),
+              ),
+              // Middle: month + year
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    //month name
+                    Text(
+                      getLocalizedMonthName(loc, selectedDate.month),
+                      textAlign: TextAlign.center,
+                      softWrap: false,
+                      overflow: TextOverflow.visible,
+                      style: const TextStyle(
+                        fontSize: Dimen.fBig,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-
-          // Right arrow group
-          SizedBox(
-            width: 50, // fixed compact width
-            child: Row(
-              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
-                _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
-              ],
-            ),
+              ),
+              // Right arrow group
+              SizedBox(
+                width: 40, // fixed compact width
+                child: Row(
+                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
+                    _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
