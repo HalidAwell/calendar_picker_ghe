@@ -226,8 +226,13 @@ class CalendarTableHijri extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
-        _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+        Row(
+          children: [
+            _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
+            const SizedBox(width: 2),
+            _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+          ],
+        ),
         //const SizedBox(width: Dimen.spacingSmall),
         Expanded(
           child: Center(
@@ -272,8 +277,13 @@ class CalendarTableHijri extends StatelessWidget {
         ),
 
         //const SizedBox(width: Dimen.spacingSmall),
-        _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
-        _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
+        Row(
+          children: [
+            _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
+            const SizedBox(width: 2),
+            _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
+          ],
+        ),
       ],
     );
   }

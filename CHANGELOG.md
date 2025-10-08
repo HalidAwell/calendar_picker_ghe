@@ -1,3 +1,5 @@
+## 2.1.5
+- update month selector
 ## 2.1.4
 - remove asset
 ## 2.1.3
