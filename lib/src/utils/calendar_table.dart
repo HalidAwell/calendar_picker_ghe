@@ -215,7 +215,7 @@ class CalendarTableGregorian extends StatelessWidget {
           SizedBox(
             width: 50, // fixed compact width
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
                 _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
@@ -261,7 +261,7 @@ class CalendarTableGregorian extends StatelessWidget {
           SizedBox(
             width: 50, // fixed compact width
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
                 _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
