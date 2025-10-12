@@ -1,3 +1,5 @@
+## 2.2.0
+- Make month names as Dropdown
 ## 2.1.6
 - update month name
 ## 2.1.5
