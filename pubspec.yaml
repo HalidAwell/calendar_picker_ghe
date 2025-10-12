@@ -20,6 +20,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/screenshots/v220/
 topics:
   - calendar-converter
   - gregorian-date-picker
