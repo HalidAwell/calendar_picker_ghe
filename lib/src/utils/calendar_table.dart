@@ -291,12 +291,12 @@ class CalendarTableGregorian extends StatelessWidget {
 
   Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
     return IconButton(
-      iconSize: 15,
+      iconSize: 16,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       onPressed: onPressed,
       icon: Container(
-        padding: const EdgeInsets.all(1),
+        //padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(2),

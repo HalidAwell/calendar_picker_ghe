@@ -5,8 +5,8 @@ class Dimen {
   static const double dialogWidthSmall = 200.0;
   static const double dialogWidthLarge = 250.0;
   // for padding and spacing
-  static const double spacingSmall = 1.0;
-  static const double spacingMedium = 5.0;
+  static const double spacingSmall = 3.0;
+  static const double spacingMedium = 6.0;
   static const double spacingLarge = 10.0;
 
   //Table cell height
