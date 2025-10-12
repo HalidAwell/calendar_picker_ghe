@@ -60,20 +60,19 @@ class CalendarTableEthiopian extends StatelessWidget {
         GestureDetector(
           onTap: isDisabled
               ? null
-              : () =>
-              onDateSelected(
-                Ethiopian(selectedDate.year, selectedDate.month, day),
-              ),
+              : () => onDateSelected(
+                    Ethiopian(selectedDate.year, selectedDate.month, day),
+                  ),
           child: Container(
             //margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
               color: isToday
                   ? Colors.teal
                   : isSelected
-                  ? Colors.teal.shade100
-                  : eth.isWeekend()
-                  ? Colors.orange[100]
-                  : null,
+                      ? Colors.teal.shade100
+                      : eth.isWeekend()
+                          ? Colors.orange[100]
+                          : null,
               //borderRadius: BorderRadius.circular(6),
               shape: BoxShape.circle,
               border: Border.all(
@@ -89,8 +88,8 @@ class CalendarTableEthiopian extends StatelessWidget {
                 color: isDisabled
                     ? Colors.grey
                     : isToday
-                    ? Colors.white
-                    : Colors.black,
+                        ? Colors.white
+                        : Colors.black,
               ),
             ),
           ),
@@ -285,49 +284,48 @@ class CalendarTableEthiopian extends StatelessWidget {
 */
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange =
-    List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
+        List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
     List<String> monthRange = List.generate(
         13, (index) => getLocalizedEthiopianMonthName(loc, index + 1));
 
-    return
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 80,
-            child: buildDropdownM<String>(
-              hint: 'ወር (month)',
-              value: getLocalizedEthiopianMonthName(loc, selectedDate.month),
-              items: monthRange,
-              onChanged: (monthName) {
-                if (monthName != null) {
-                  // Find the month number from the localized name
-                  int monthNumber = monthRange.indexWhere((name) =>
-                  name == monthName) + 1;
-                  if (monthNumber > 0) {
-                    onDateSelected(Ethiopian(selectedDate.year, monthNumber, 1));
-                  }
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: 80,
+          child: buildDropdownM<String>(
+            hint: 'ወር (month)',
+            value: getLocalizedEthiopianMonthName(loc, selectedDate.month),
+            items: monthRange,
+            onChanged: (monthName) {
+              if (monthName != null) {
+                // Find the month number from the localized name
+                int monthNumber =
+                    monthRange.indexWhere((name) => name == monthName) + 1;
+                if (monthNumber > 0) {
+                  onDateSelected(Ethiopian(selectedDate.year, monthNumber, 1));
                 }
-              },
-            ),
+              }
+            },
           ),
-          const SizedBox(width: 20),
-          SizedBox(
-            width: 70,
-            height: Dimen.cellSmall,
-            child: buildDropdown<int>(
-              hint: 'አመት',
-              value: selectedDate.year,
-              items: yearRange,
-              onChanged: (year) {
-                if (year != null) {
-                  onDateSelected(Ethiopian(year, selectedDate.month, 1));
-                }
-              },
-            ),
+        ),
+        const SizedBox(width: 20),
+        SizedBox(
+          width: 70,
+          height: Dimen.cellSmall,
+          child: buildDropdown<int>(
+            hint: 'አመት',
+            value: selectedDate.year,
+            items: yearRange,
+            onChanged: (year) {
+              if (year != null) {
+                onDateSelected(Ethiopian(year, selectedDate.month, 1));
+              }
+            },
           ),
-        ],
-      );
+        ),
+      ],
+    );
   }
 /*
   void _changeMonth(int offset) {

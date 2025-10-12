@@ -104,8 +104,7 @@ Widget buildDropdown<T>({
 }) {
   return SizedBox(
     width: 70,
-    child:
-    DropdownButtonFormField<T>(
+    child: DropdownButtonFormField<T>(
       isExpanded: true,
       initialValue: value,
       decoration: InputDecoration(
