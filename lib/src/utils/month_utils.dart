@@ -104,7 +104,8 @@ Widget buildDropdown<T>({
 }) {
   return SizedBox(
     width: 70,
-    child: DropdownButtonFormField<T>(
+    child:
+    DropdownButtonFormField<T>(
       isExpanded: true,
       initialValue: value,
       decoration: InputDecoration(
@@ -136,5 +137,31 @@ Widget buildDropdown<T>({
       }).toList(),
       onChanged: onChanged,
     ),
+  );
+}
+
+Widget buildDropdownM<T>({
+  required String hint,
+  required T? value,
+  required List<T> items,
+  required Function(T?) onChanged,
+}) {
+  return DropdownButton<T>(
+    value: value,
+    isExpanded: true,
+    underline: Container(height: 0),
+    items: items.map((T item) {
+      return DropdownMenuItem<T>(
+        value: item,
+        child: Text(
+          item.toString(),
+          style: const TextStyle(fontSize: 10),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          textAlign: TextAlign.right,
+        ),
+      );
+    }).toList(),
+    onChanged: onChanged,
   );
 }

@@ -218,10 +218,11 @@ class CalendarTableEthiopian extends StatelessWidget {
     List<int> yearRange =
         List.generate(lastYear - firstYear + 1, (index) => firstYear + index);
 
+    List<String> monthRange = List.generate(13, (index) => getLocalizedEthiopianMonthName(loc, index + 1));
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(
+        /*SizedBox(
           width: 40, // fixed compact width
           child: Row(
            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -231,8 +232,28 @@ class CalendarTableEthiopian extends StatelessWidget {
             ],
           ),
         ),
-        //const SizedBox(width: Dimen.spacingSmall),
+        */
         SizedBox(
+          width: 70,
+          //height: Dimen.cellSmall,
+          child: buildDropdownM<String>(
+            hint: 'ወር',
+            value: getLocalizedEthiopianMonthName(loc, selectedDate.month),
+            items: monthRange,
+            onChanged: (monthName) {
+              if (monthName != null) {
+                // Find the month number from the localized name
+                int monthNumber = monthRange.indexWhere((name) => name == monthName) + 1;
+                if (monthNumber > 0) {
+                  onDateSelected(Ethiopian(selectedDate.year, monthNumber, 1));
+                }
+              }
+            },
+          ),
+        ),
+        const SizedBox(width: Dimen.spacingLarge),
+        //const SizedBox(width: Dimen.spacingSmall),
+        /*SizedBox(
           width: 120,
           child: Center(
             child: Row(
@@ -265,9 +286,23 @@ class CalendarTableEthiopian extends StatelessWidget {
               ],
             ),
           ),
+        ),*/
+        SizedBox(
+          width: 70,
+          height: Dimen.cellSmall,
+          child: buildDropdown<int>(
+            hint: 'አመት',
+            value: selectedDate.year,
+            items: yearRange,
+            onChanged: (year) {
+              if (year != null) {
+                onDateSelected(Ethiopian(year, selectedDate.month, 1));
+              }
+            },
+          ),
         ),
         //const SizedBox(width: Dimen.spacingSmall),
-        SizedBox(
+        /*SizedBox(
           width: 40, // fixed compact width
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -277,6 +312,7 @@ class CalendarTableEthiopian extends StatelessWidget {
             ],
           ),
         ),
+        */
       ],
     );
   }
