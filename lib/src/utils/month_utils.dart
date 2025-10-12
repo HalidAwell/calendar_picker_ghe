@@ -153,12 +153,14 @@ Widget buildDropdownM<T>({
     items: items.map((T item) {
       return DropdownMenuItem<T>(
         value: item,
-        child: Text(
-          item.toString(),
-          style: const TextStyle(fontSize: 10),
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          textAlign: TextAlign.right,
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            item.toString(),
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w800),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
         ),
       );
     }).toList(),

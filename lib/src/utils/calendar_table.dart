@@ -205,6 +205,65 @@ class CalendarTableGregorian extends StatelessWidget {
       lastYear - firstYear + 1,
           (index) => firstYear + index,
     );
+    List<String> monthRange = List.generate(
+        12,
+            (index) => getLocalizedMonthName(loc, index + 1)
+    );
+
+    return
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 80,
+            child: buildDropdownM<String>(
+              hint: 'Month',
+              value: getLocalizedMonthName(loc, selectedDate.month),
+              items: monthRange,
+              onChanged: (monthName) {
+                if (monthName != null) {
+                  // Find the month number from the localized name
+                  int monthNumber = monthRange.indexWhere((name) =>
+                  name == monthName) + 1;
+                  if (monthNumber > 0) {
+                    onDateSelected(DateTime(
+                        selectedDate.year,
+                        monthNumber,
+                        1
+                    ));
+                  }
+                }
+              },
+            ),
+          ),
+          const SizedBox(width: 20),
+          SizedBox(
+            width: 70,
+            height: Dimen.cellSmall,
+            child: buildDropdown<int>(
+              hint: 'Year',
+              value: selectedDate.year,
+              items: yearRange,
+              onChanged: (year) {
+                if (year != null) {
+                  onDateSelected(DateTime(
+                      year,
+                      selectedDate.month,
+                      1
+                  ));
+                }
+              },
+            ),
+          ),
+        ],
+      );
+  }
+  /*
+  Widget _buildMonthNavigation(BuildContext context) {
+    List<int> yearRange = List.generate(
+      lastYear - firstYear + 1,
+          (index) => firstYear + index,
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -305,4 +364,5 @@ class CalendarTableGregorian extends StatelessWidget {
       ),
     );
   }
+*/
 }

@@ -220,6 +220,71 @@ class CalendarTableHijri extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
+          (index) => firstYear + index,
+    );
+    List<String> monthRange = List.generate(
+        12,
+            (index) => getLocalizedHijriMonthName(loc, index + 1)
+    );
+
+    return
+
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 80,
+            child: buildDropdownM<String>(
+              hint: 'Month',
+              value: getLocalizedHijriMonthName(loc, selectedDate.month),
+              items: monthRange,
+              onChanged: (monthName) {
+                if (monthName != null) {
+                  // Find the month number from the localized name
+                  int monthNumber = monthRange.indexWhere((name) =>
+                  name == monthName) + 1;
+                  if (monthNumber > 0) {
+                    onDateSelected(Hijri(
+                        year: selectedDate.year,
+                        month: monthNumber,
+                        day: 1
+                    ));
+                  }
+                }
+              },
+            ),
+          ),
+          const SizedBox(width: 20),
+          SizedBox(
+            width: 70,
+            height: Dimen.cellSmall,
+            child: buildDropdown<int>(
+              hint: 'Year',
+              value: selectedDate.year,
+              items: yearRange,
+              onChanged: (year) {
+                if (year != null) {
+                  onDateSelected(Hijri(
+                      year: year,
+                      month: selectedDate.month,
+                      day: 1
+                  ));
+                }
+              },
+            ),
+          ),
+        ],
+      )
+    ;
+  }
+  String formatFullHijriDate(Hijri date) {
+    final monthName = getLocalizedHijriMonthName(loc, date.month);
+    return '$monthName ${date.day}, ${date.year} ';
+  }
+  /*
+  Widget _buildMonthNavigation(BuildContext context) {
+    List<int> yearRange = List.generate(
+      lastYear - firstYear + 1,
       (index) => firstYear + index,
     );
 
@@ -335,8 +400,5 @@ class CalendarTableHijri extends StatelessWidget {
     );
   }
 
-  String formatFullHijriDate(Hijri date) {
-    final monthName = getLocalizedHijriMonthName(loc, date.month);
-    return '$monthName ${date.day}, ${date.year} ';
-  }
+   */
 }
