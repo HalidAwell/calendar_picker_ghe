@@ -200,53 +200,150 @@ class CalendarTableGregorian extends StatelessWidget {
     );
   }
 
+  // Widget _buildMonthNavigation(BuildContext context) {
+  //   List<int> yearRange = List.generate(
+  //     lastYear - firstYear + 1,
+  //     (index) => firstYear + index,
+  //   );
+  //   List<String> monthRange =
+  //       List.generate(12, (index) => getLocalizedMonthName(loc, index + 1));
+  //
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       SizedBox(
+  //         width: 80,
+  //         child: buildDropdownM<String>(
+  //           hint: 'Month',
+  //           value: getLocalizedMonthName(loc, selectedDate.month),
+  //           items: monthRange,
+  //           onChanged: (monthName) {
+  //             if (monthName != null) {
+  //               // Find the month number from the localized name
+  //               int monthNumber =
+  //                   monthRange.indexWhere((name) => name == monthName) + 1;
+  //               if (monthNumber > 0) {
+  //                 onDateSelected(DateTime(selectedDate.year, monthNumber, 1));
+  //               }
+  //             }
+  //           },
+  //         ),
+  //       ),
+  //       const SizedBox(width: 10),
+  //       SizedBox(
+  //         width: 80,
+  //         height: Dimen.cellSmall,
+  //         child: buildDropdown<int>(
+  //           hint: 'Year',
+  //           value: selectedDate.year,
+  //           items: yearRange,
+  //           onChanged: (year) {
+  //             if (year != null) {
+  //               onDateSelected(DateTime(year, selectedDate.month, 1));
+  //             }
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-      (index) => firstYear + index,
+          (index) => firstYear + index,
     );
-    List<String> monthRange =
-        List.generate(12, (index) => getLocalizedMonthName(loc, index + 1));
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          width: 80,
-          child: buildDropdownM<String>(
-            hint: 'Month',
-            value: getLocalizedMonthName(loc, selectedDate.month),
-            items: monthRange,
-            onChanged: (monthName) {
-              if (monthName != null) {
-                // Find the month number from the localized name
-                int monthNumber =
-                    monthRange.indexWhere((name) => name == monthName) + 1;
-                if (monthNumber > 0) {
-                  onDateSelected(DateTime(selectedDate.year, monthNumber, 1));
-                }
-              }
-            },
+        // Row 1: Year dropdown (aligned left)
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildDropdown<int>(
+                hint: 'Year',
+                value: selectedDate.year,
+                items: yearRange,
+                onChanged: (year) {
+                  if (year != null) {
+                    onDateSelected(DateTime(year, selectedDate.month, 1));
+                  }
+                },
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: 70,
-          height: Dimen.cellSmall,
-          child: buildDropdown<int>(
-            hint: 'Year',
-            value: selectedDate.year,
-            items: yearRange,
-            onChanged: (year) {
-              if (year != null) {
-                onDateSelected(DateTime(year, selectedDate.month, 1));
-              }
-            },
-          ),
+        //const Spacer(),
+
+        // Row 2: Month navigation with arrows and month name + year
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Left arrow
+            _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+
+            const SizedBox(width: 16),
+
+            // Month name with year (flexible with ellipsis)
+            Flexible(
+              child: Text(
+                '${getLocalizedMonthName(loc, selectedDate.month)}',
+                style: const TextStyle(
+                  fontSize: Dimen.fBig,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                softWrap: false,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+    '${selectedDate.year}',
+    style: const TextStyle(
+    fontSize: Dimen.fBig,
+    fontWeight: FontWeight.bold,
+    )),
+
+            const SizedBox(width: 16),
+
+            // Right arrow
+            _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
+          ],
         ),
       ],
     );
   }
+
+  void _changeMonth(int offset) {
+    final newDate = DateTime(selectedDate.year, selectedDate.month + offset, 1);
+    if (newDate.year < firstYear || newDate.year > lastYear) return;
+    onDateSelected(newDate);
+  }
+
+  Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(4),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Icon(icon, size: 20, color: Colors.black87),
+        ),
+      ),
+    );
+  }
+
+
   /*
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(

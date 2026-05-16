@@ -220,50 +220,109 @@ class CalendarTableHijri extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-      (index) => firstYear + index,
+          (index) => firstYear + index,
     );
-    List<String> monthRange = List.generate(
-        12, (index) => getLocalizedHijriMonthName(loc, index + 1));
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          width: 80,
-          child: buildDropdownM<String>(
-            hint: 'Month',
-            value: getLocalizedHijriMonthName(loc, selectedDate.month),
-            items: monthRange,
-            onChanged: (monthName) {
-              if (monthName != null) {
-                // Find the month number from the localized name
-                int monthNumber =
-                    monthRange.indexWhere((name) => name == monthName) + 1;
-                if (monthNumber > 0) {
-                  onDateSelected(Hijri(
-                      year: selectedDate.year, month: monthNumber, day: 1));
-                }
-              }
-            },
+        // Row 1: Year dropdown (aligned center)
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildDropdown<int>(
+                hint: 'Year',
+                value: selectedDate.year,
+                items: yearRange,
+                onChanged: (year) {
+                  if (year != null) {
+                    onDateSelected(Hijri(year: year, month: selectedDate.month, day: 1));
+                  }
+                },
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: 70,
-          height: Dimen.cellSmall,
-          child: buildDropdown<int>(
-            hint: 'Year',
-            value: selectedDate.year,
-            items: yearRange,
-            onChanged: (year) {
-              if (year != null) {
-                onDateSelected(
-                    Hijri(year: year, month: selectedDate.month, day: 1));
-              }
-            },
-          ),
+
+        // Row 2: Month navigation with arrows and month name + year
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Left arrow
+            _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
+
+            const SizedBox(width: 16),
+
+            // Month name with ellipsis
+            Flexible(
+              child: Text(
+                getLocalizedHijriMonthName(loc, selectedDate.month),
+                style: const TextStyle(
+                  fontSize: Dimen.fBig,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                softWrap: false,
+                textAlign: TextAlign.center,
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            // Year (always visible)
+            Text(
+              '${selectedDate.year}',
+              style: const TextStyle(
+                fontSize: Dimen.fBig,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(width: 16),
+
+            // Right arrow
+            _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
+          ],
         ),
       ],
+    );
+  }
+
+  void _changeMonth(int offset) {
+    int newMonth = selectedDate.month + offset;
+    int newYear = selectedDate.year;
+
+    // Hijri calendar has 12 months
+    if (newMonth > 12) {
+      newMonth = 1;
+      newYear += 1;
+    } else if (newMonth < 1) {
+      newMonth = 12;
+      newYear -= 1;
+    }
+
+    if (newYear < firstYear || newYear > lastYear) return;
+    onDateSelected(Hijri(year: newYear, month: newMonth, day: 1));
+  }
+
+  Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(4),
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Icon(icon, size: 20, color: Colors.black87),
+        ),
+      ),
     );
   }
 

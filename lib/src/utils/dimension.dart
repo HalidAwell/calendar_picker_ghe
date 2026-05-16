@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class Dimen {
   // for Alertblock
-  static const double dialogWidthSmall = 200.0;
-  static const double dialogWidthLarge = 250.0;
+  static const double dialogWidthSmall = 240.0;
+  static const double dialogWidthLarge = 280.0;
   // for padding and spacing
   static const double spacingSmall = 3.0;
   static const double spacingMedium = 6.0;
@@ -20,6 +20,6 @@ class Dimen {
 
   static bool isSmall(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return width <= 460;
+    return width <= 290;
   }
 }

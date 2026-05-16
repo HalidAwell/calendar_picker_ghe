@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:flutter/material.dart';
 import '../src/service/app_localizations.dart';
@@ -21,9 +23,9 @@ Future<Hijri?> hijriDatePicker({
           Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge,
         ),
         content: SizedBox(
-          width: Dimen.isSmall(context)
-              ? Dimen.dialogWidthSmall
-              : Dimen.dialogWidthLarge,
+          width: Platform.isAndroid
+              ? MediaQuery.of(context).size.width * 0.85
+              : 280,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(

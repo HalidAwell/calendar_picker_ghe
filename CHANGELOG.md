@@ -1,3 +1,19 @@
+## 2.3.0
+### Added
+- New responsive month navigation with arrow buttons
+- Year dropdown now separated from month navigation
+- Month names can now be truncated with ellipsis on small screens
+- Added Material Design arrow buttons with ripple effect
+
+### Changed
+- Replaced month dropdown with arrow-based month navigation
+- Improved layout: Year dropdown on first row, month navigation on second row
+- Month names now use Flexible widget to prevent overflow
+- Year always remains fully visible while month name can be truncated
+
+### Fixed
+- Fixed overflow issues on small screen devices
+- Improved touch targets for month navigation arrows
 ## 2.2.0
 - Make month names as Dropdown
 ## 2.1.6

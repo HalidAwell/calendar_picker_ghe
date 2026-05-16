@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../src/service/app_localizations.dart';
@@ -20,9 +22,9 @@ Future<DateTime?> gregorianDatePicker({
         contentPadding: EdgeInsets.all(
             Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge),
         content: SizedBox(
-          width: Dimen.isSmall(context)
-              ? Dimen.dialogWidthSmall
-              : Dimen.dialogWidthLarge,
+          width: Platform.isAndroid
+              ? MediaQuery.of(context).size.width * 0.85
+              : 280,
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
