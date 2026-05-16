@@ -220,7 +220,7 @@ class CalendarTableHijri extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-          (index) => firstYear + index,
+      (index) => firstYear + index,
     );
 
     return Column(
@@ -238,7 +238,8 @@ class CalendarTableHijri extends StatelessWidget {
                 items: yearRange,
                 onChanged: (year) {
                   if (year != null) {
-                    onDateSelected(Hijri(year: year, month: selectedDate.month, day: 1));
+                    onDateSelected(
+                        Hijri(year: year, month: selectedDate.month, day: 1));
                   }
                 },
               ),

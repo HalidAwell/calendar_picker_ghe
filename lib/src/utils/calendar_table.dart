@@ -251,7 +251,7 @@ class CalendarTableGregorian extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-          (index) => firstYear + index,
+      (index) => firstYear + index,
     );
 
     return Column(
@@ -290,7 +290,7 @@ class CalendarTableGregorian extends StatelessWidget {
             // Month name with year (flexible with ellipsis)
             Flexible(
               child: Text(
-                'getLocalizedMonthName(loc, selectedDate.month)',
+                getLocalizedMonthName(loc, selectedDate.month),
                 style: const TextStyle(
                   fontSize: Dimen.fBig,
                   fontWeight: FontWeight.bold,
@@ -302,12 +302,11 @@ class CalendarTableGregorian extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Text(
-    '${selectedDate.year}',
-    style: const TextStyle(
-    fontSize: Dimen.fBig,
-    fontWeight: FontWeight.bold,
-    )),
+            Text('${selectedDate.year}',
+                style: const TextStyle(
+                  fontSize: Dimen.fBig,
+                  fontWeight: FontWeight.bold,
+                )),
 
             const SizedBox(width: 16),
 
@@ -342,7 +341,6 @@ class CalendarTableGregorian extends StatelessWidget {
       ),
     );
   }
-
 
   /*
   Widget _buildMonthNavigation(BuildContext context) {

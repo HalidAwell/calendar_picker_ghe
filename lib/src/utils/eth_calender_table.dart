@@ -286,7 +286,7 @@ class CalendarTableEthiopian extends StatelessWidget {
   Widget _buildMonthNavigation(BuildContext context) {
     List<int> yearRange = List.generate(
       lastYear - firstYear + 1,
-          (index) => firstYear + index,
+      (index) => firstYear + index,
     );
 
     return Column(
@@ -391,7 +391,6 @@ class CalendarTableEthiopian extends StatelessWidget {
       ),
     );
   }
-
 
   /*
   void _changeMonth(int offset) {
