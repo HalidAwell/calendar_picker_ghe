@@ -290,7 +290,7 @@ class CalendarTableGregorian extends StatelessWidget {
             // Month name with year (flexible with ellipsis)
             Flexible(
               child: Text(
-                '${getLocalizedMonthName(loc, selectedDate.month)}',
+                'getLocalizedMonthName(loc, selectedDate.month)',
                 style: const TextStyle(
                   fontSize: Dimen.fBig,
                   fontWeight: FontWeight.bold,
