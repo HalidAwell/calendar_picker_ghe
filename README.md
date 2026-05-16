@@ -28,7 +28,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 | Gregorian                                                                                                 | Ethiopian                                                                                                | Hijri                                                                                                  |
 |-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| ![Gregorian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/grigen.png) | ![Ethiopian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/ethen.png) | ![Hijri English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/hijrien.png) |
+| ![Gregorian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/grigen.png) | ![Ethiopian English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/ethen.png) | ![Hijri English](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/hijrien.png) |
 
 ---
 
@@ -36,7 +36,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 | Gregorian                                                                                                 | Ethiopian                                                                                                | Hijri                                                                                                  |
 |-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| ![Gregorian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/grigam.png) | ![Ethiopian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/etham.png) | ![Hijri Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/hijriam.png) |
+| ![Gregorian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/grigam.png) | ![Ethiopian Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/etham.png) | ![Hijri Amharic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/hijriam.png) |
 
 ---
 
@@ -44,7 +44,7 @@ Easily switch between calendars using a **unified API** with a clean, customizab
 
 | Gregorian                                                                                                | Ethiopian                                                                                               | Hijri                                                                                                 |
 |----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| ![Gregorian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/grigar.png) | ![Ethiopian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/ethar.png) | ![Hijri Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/v230/hijriar.png) |
+| ![Gregorian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/grigar.png) | ![Ethiopian Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/ethar.png) | ![Hijri Arabic](https://raw.githubusercontent.com/HalidAwell/calendar_picker_images/main/v230/hijriar.png) |
 
 ---
 
