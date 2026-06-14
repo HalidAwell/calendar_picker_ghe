@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../src/service/app_localizations.dart';
 import './utils/calendar_table.dart';
@@ -11,20 +12,23 @@ Future<DateTime?> gregorianDatePicker({
   required int initialYear,
   required int firstYear,
   required int lastYear,
-  String locale = 'en', // <-- add this
+  String locale = 'en',
 }) async {
   DateTime tempSelected = DateTime(initialYear, 1, 1);
   final loc = AppLocalizations(Locale(locale));
+
   return showDialog<DateTime>(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        contentPadding: EdgeInsets.all(
-            Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge),
-        content: SizedBox(
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28),
+        ),
+        child: Container(
           width: Platform.isAndroid
-              ? MediaQuery.of(context).size.width * 0.85
-              : 280,
+              ? MediaQuery.of(context).size.width * 0.9
+              : 400,
+          constraints: const BoxConstraints(maxWidth: 450),
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
@@ -39,22 +43,57 @@ Future<DateTime?> gregorianDatePicker({
                     },
                     loc: loc,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, null),
-                        child: Text(loc.cancel),
-                      ),
-                      const SizedBox(width: Dimen.spacingMedium),
-                      ElevatedButton(
-                        onPressed: () => Navigator.pop(context, tempSelected),
-                        child: Text(loc.ok),
-                      ),
-                      const SizedBox(width: Dimen.spacingMedium),
-                    ],
+                  const Divider(height: 1, thickness: 1, color: Colors.grey),
+                  const SizedBox(
+                    height: 5,
                   ),
-                  const SizedBox(height: Dimen.spacingMedium),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, null),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                          ),
+                          child: Text(
+                            loc.cancel,
+                            style: GoogleFonts.poppins(
+                              fontSize: Dimen.fMedium,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: Dimen.spacingMedium),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context, tempSelected),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 8,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            loc.ok,
+                            style: GoogleFonts.poppins(
+                              fontSize: Dimen.fMedium,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             },

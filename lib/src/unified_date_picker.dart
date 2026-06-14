@@ -21,7 +21,7 @@ Future<dynamic> showUnifiedDatePicker({
     case CalendarType.hijri:
       return hijriDatePicker(
         context: context,
-        intialYear: initialYear,
+        initialYear: initialYear,
         firstYear: firstYear,
         lastYear: lastYear,
         locale: locale, // <-- pass locale

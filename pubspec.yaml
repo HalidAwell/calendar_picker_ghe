@@ -1,6 +1,6 @@
 name: calendar_picker_ghe
 description: A lightweight Gregorian, Hijri, and Ethiopian Calendar date picker which is simple to use with a unified system.
-version: 2.3.0
+version: 3.0.0
 homepage: https://github.com/HalidAwell/calendar_picker_ghe
 repository: https://github.com/HalidAwell/calendar_picker_ghe
 
@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   ethiopian_datetime: ^1.0.3 # For Ethiopian calendar conversion
   hijri: ^3.0.0  # For Hijri calendar conversion
+  google_fonts: ^8.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:calendar_picker_ghe/src/service/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../service/app_localizations.dart';
 import 'month_utils.dart';
 import 'dimension.dart';
 
-class CalendarTableGregorian extends StatelessWidget {
+class CalendarTableGregorian extends StatefulWidget {
   final DateTime selectedDate;
   final Function(DateTime) onDateSelected;
   final int firstYear;
   final int lastYear;
-  final AppLocalizations loc; // <- Add this
+  final AppLocalizations loc;
 
   const CalendarTableGregorian({
     super.key,
@@ -16,63 +17,221 @@ class CalendarTableGregorian extends StatelessWidget {
     required this.firstYear,
     required this.lastYear,
     required this.onDateSelected,
-    required this.loc, // <- Required
+    required this.loc,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final firstDayOfMonth = DateTime(selectedDate.year, selectedDate.month, 1);
-    final firstWeekday = firstDayOfMonth.weekday % 7;
-    final daysInMonth =
-        DateTime(selectedDate.year, selectedDate.month + 1, 0).day;
+  CalendarTableGregorianState createState() => CalendarTableGregorianState();
+}
+
+class CalendarTableGregorianState extends State<CalendarTableGregorian>
+    with SingleTickerProviderStateMixin {
+  late DateTime _currentDisplayDate;
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+
+  static const Color _isSunday = Color(0xFFE74C3C);
+  static const Color _todayColor = Color(0xFF3498DB);
+  static const Color _selectedColor = Color(0xFF2C3E50);
+
+  @override
+  void initState() {
+    super.initState();
+    _currentDisplayDate = widget.selectedDate;
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _scaleAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOutBack,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _animateTransition() {
+    _animationController.reset();
+    _animationController.forward();
+  }
+
+  void _onDateChanged(DateTime newDate) {
+    if (newDate.year < widget.firstYear || newDate.year > widget.lastYear)
+      return;
+    setState(() {
+      _currentDisplayDate = newDate;
+      _animateTransition();
+    });
+    widget.onDateSelected(newDate);
+  }
+
+  void _previousMonth() {
+    DateTime newDate;
+    if (_currentDisplayDate.month == 1) {
+      newDate = DateTime(_currentDisplayDate.year - 1, 12, 1);
+    } else {
+      newDate =
+          DateTime(_currentDisplayDate.year, _currentDisplayDate.month - 1, 1);
+    }
+    _onDateChanged(newDate);
+  }
+
+  void _nextMonth() {
+    DateTime newDate;
+    if (_currentDisplayDate.month == 12) {
+      newDate = DateTime(_currentDisplayDate.year + 1, 1, 1);
+    } else {
+      newDate =
+          DateTime(_currentDisplayDate.year, _currentDisplayDate.month + 1, 1);
+    }
+    _onDateChanged(newDate);
+  }
+
+  void goToToday() {
     final today = DateTime.now();
+    setState(() {
+      _currentDisplayDate = today;
+      _animateTransition();
+    });
+    widget.onDateSelected(today);
+  }
+
+  int getDaysInGregorianMonth(int month, int year) {
+    if (month == 2) return isLeapYear(year) ? 29 : 28;
+    const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return daysInMonth[month - 1];
+  }
+
+  bool isLeapYear(int year) =>
+      (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+
+  bool isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+
+  String _formatFullDate(DateTime date) {
+    final localizedMonth = getLocalizedMonthName(widget.loc, date.month);
+    return '$localizedMonth ${date.day}, ${date.year}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onHorizontalDragEnd: (DragEndDetails details) {
+        if (details.primaryVelocity != null) {
+          if (details.primaryVelocity! > 0)
+            _previousMonth();
+          else if (details.primaryVelocity! < 0) _nextMonth();
+        }
+      },
+      child: AnimatedBuilder(
+        animation: _scaleAnimation,
+        builder: (context, child) {
+          final scaleValue = 0.98 + (_scaleAnimation.value * 0.02);
+          final opacityValue =
+              (0.9 + (_scaleAnimation.value * 0.1)).clamp(0.0, 1.0);
+
+          return Transform.scale(
+            scale: scaleValue,
+            child: Opacity(
+              opacity: opacityValue,
+              child: child,
+            ),
+          );
+        },
+        child: _buildCalendarContent(context),
+      ),
+    );
+  }
+
+  Widget _buildCalendarContent(BuildContext context) {
+    final daysInMonth = getDaysInGregorianMonth(
+        _currentDisplayDate.month, _currentDisplayDate.year);
+    final firstDayOfMonth =
+        DateTime(_currentDisplayDate.year, _currentDisplayDate.month, 1);
+    final firstWeekday = firstDayOfMonth.weekday % 7;
+    final today = DateTime.now();
+
+    final isToday = (int day) =>
+        day == today.day &&
+        _currentDisplayDate.month == today.month &&
+        _currentDisplayDate.year == today.year;
 
     List<Widget> dayCells = [];
 
     for (int i = 0; i < firstWeekday; i++) {
-      dayCells.add(Container());
+      dayCells.add(const SizedBox());
     }
 
     for (int day = 1; day <= daysInMonth; day++) {
-      final dayDate = DateTime(selectedDate.year, selectedDate.month, day);
-      final isToday = _isSameDate(dayDate, today);
-      final isSelected = _isSameDate(dayDate, selectedDate);
-      final isWeekend = dayDate.weekday == DateTime.saturday ||
-          dayDate.weekday == DateTime.sunday;
-
-      final isDisabled = dayDate.year < firstYear || dayDate.year > lastYear;
+      final date =
+          DateTime(_currentDisplayDate.year, _currentDisplayDate.month, day);
+      final isSelected = isSameDay(date, widget.selectedDate);
+      final isTodayDate = isToday(day);
+      final isSunday = date.weekday == DateTime.sunday;
+      final isDisabled =
+          date.year < widget.firstYear || date.year > widget.lastYear;
 
       dayCells.add(
         GestureDetector(
-          //onTap: () => onDateSelected(dayDate),
-          onTap: isDisabled ? null : () => onDateSelected(dayDate),
-          child: Container(
-            //margin: const EdgeInsets.all(3),
+          onTap: isDisabled ? null : () => widget.onDateSelected(date),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            margin: const EdgeInsets.all(3),
             decoration: BoxDecoration(
-              color: isToday
-                  ? Colors.teal
-                  : isSelected
-                      ? Colors.teal.shade100
-                      : isWeekend
-                          ? Colors.orange[100]
-                          : null,
-              //borderRadius: BorderRadius.circular(3),
-              shape: BoxShape.circle, //: BoxShape.rectangle,
-              border: Border.all(
-                color: isToday || isSelected ? Colors.teal : Colors.transparent,
-              ),
+              gradient: isSelected
+                  ? LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFF2C3E50),
+                        const Color(0xFF34495E)
+                      ],
+                    )
+                  : isTodayDate
+                      ? LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            const Color(0xFF3498DB),
+                            const Color(0xFF5DADE2)
+                          ],
+                        )
+                      : null,
+              color: !isSelected && !isTodayDate ? Colors.transparent : null,
+              shape: BoxShape.circle,
+              boxShadow: isSelected || isTodayDate
+                  ? [
+                      BoxShadow(
+                        color: (isSelected
+                                ? const Color(0xFF2C3E50)
+                                : const Color(0xFF3498DB))
+                            .withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      )
+                    ]
+                  : null,
             ),
-            alignment: Alignment.center,
-            child: Text(
-              '$day',
-              style: TextStyle(
-                fontSize: Dimen.fBig,
-                fontWeight: FontWeight.bold,
-                color: isDisabled
-                    ? Colors.grey
-                    : isToday
-                        ? Colors.white
-                        : Colors.black,
+            child: Center(
+              child: Text(
+                day.toString(),
+                style: GoogleFonts.poppins(
+                  fontSize: Dimen.fMedium,
+                  fontWeight: isSelected || isTodayDate
+                      ? FontWeight.w700
+                      : FontWeight.w500,
+                  color: isDisabled
+                      ? Colors.grey.shade400
+                      : isSelected || isTodayDate
+                          ? Colors.white
+                          : isSunday
+                              ? _isSunday
+                              : Colors.grey.shade800,
+                ),
               ),
             ),
           ),
@@ -81,33 +240,70 @@ class CalendarTableGregorian extends StatelessWidget {
     }
 
     while (dayCells.length < 42) {
-      dayCells.add(Container());
+      dayCells.add(const SizedBox());
     }
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildTodayHeader(context, today),
-        const SizedBox(height: Dimen.spacingMedium),
-        _buildMonthNavigation(context),
-        const SizedBox(height: Dimen.spacingMedium),
-        _buildWeekdayRow(
-            [loc.sun, loc.mon, loc.tue, loc.wed, loc.thu, loc.fri, loc.sat]),
-        Table(
-          border: TableBorder.all(color: Colors.grey.shade300, width: 0.5),
-          children: List.generate(6, (week) {
-            return TableRow(
-              children: List.generate(7, (dayOfWeek) {
-                final index = week * 7 + dayOfWeek;
-                return SizedBox(
-                    height: Dimen.isSmall(context)
-                        ? Dimen.cellSmall
-                        : Dimen.cellMedium,
-                    child: dayCells[index]);
-              }),
-            );
-          }),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildNavButton(
+                  Icons.skip_previous,
+                  () => _onDateChanged(DateTime(_currentDisplayDate.year - 1,
+                      _currentDisplayDate.month, 1))),
+              _buildNavButton(Icons.chevron_left, _previousMonth),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    '${getLocalizedMonthName(widget.loc, _currentDisplayDate.month)} ${_currentDisplayDate.year}',
+                    style: GoogleFonts.poppins(
+                      fontSize: Dimen.fSmall,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.grey.shade800,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ),
+              _buildNavButton(Icons.chevron_right, _nextMonth),
+              _buildNavButton(
+                  Icons.skip_next,
+                  () => _onDateChanged(DateTime(_currentDisplayDate.year + 1,
+                      _currentDisplayDate.month, 1))),
+            ],
+          ),
         ),
+        const Divider(height: 1, thickness: 1, color: Colors.grey),
+        _buildWeekdayRow([
+          widget.loc.sun,
+          widget.loc.mon,
+          widget.loc.tue,
+          widget.loc.wed,
+          widget.loc.thu,
+          widget.loc.fri,
+          widget.loc.sat
+        ]),
+        const Divider(height: 1, thickness: 1, color: Colors.grey),
+        const SizedBox(height: 8),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(8),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 7,
+            childAspectRatio: 1,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+          ),
+          itemCount: 42,
+          itemBuilder: (context, index) => dayCells[index],
+        ),
+        const SizedBox(height: 8),
       ],
     );
   }
@@ -115,338 +311,118 @@ class CalendarTableGregorian extends StatelessWidget {
   Widget _buildTodayHeader(BuildContext context, DateTime today) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.all(Dimen.isSmall(context)
-          ? Dimen.spacingLarge
-          : Dimen.spacingSmall), //(left: 10, top: 2, right: 10, bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.teal[500],
-        borderRadius: BorderRadius.circular(5),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.teal.shade700, Colors.teal.shade500],
+        ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(24),
+          topRight: Radius.circular(24),
+        ),
       ),
       child: Column(
         children: [
+          const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(loc.gregorianDatePicker,
-                  style: TextStyle(
-                    fontSize: Dimen.fBig,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
+              const SizedBox(width: 8),
+              Text(
+                widget.loc.gregorianDatePicker,
+                style: GoogleFonts.poppins(
+                  fontSize: Dimen.fMedium,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           GestureDetector(
             onTap: () {
-              if (selectedDate.month != today.month ||
-                  selectedDate.year != today.year) {
-                onDateSelected(DateTime(today.year, today.month, today.day));
+              if (_currentDisplayDate.month != today.month ||
+                  _currentDisplayDate.year != today.year) {
+                goToToday();
               }
             },
-            child: Row(
-              children: [
-                const Icon(Icons.today, size: 12, color: Colors.white),
-                const SizedBox(width: Dimen.spacingMedium),
-                Text(loc.today,
-                    style: TextStyle(
-                        fontSize: Dimen.fBig,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-                const SizedBox(width: Dimen.spacingMedium),
-                Text(
-                  _formatFullDate(today),
-                  style: const TextStyle(
-                      fontSize: Dimen.fBig, color: Colors.white),
-                ),
-              ],
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.today, size: 16, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Text(
+                    widget.loc.today,
+                    style: GoogleFonts.poppins(
+                      fontSize: Dimen.fSmall,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    _formatFullDate(today),
+                    style: GoogleFonts.poppins(
+                      fontSize: Dimen.fSmall,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(height: Dimen.spacingMedium)
+          const SizedBox(height: 12),
         ],
       ),
     );
   }
 
-  String _formatFullDate(DateTime date) {
-    final localizedMonth = getLocalizedMonthName(loc, date.month);
-    return '$localizedMonth ${date.day}, ${date.year}';
-  }
-
-  bool _isSameDate(DateTime a, DateTime b) =>
-      a.year == b.year && a.month == b.month && a.day == b.day;
-
-  Widget _buildWeekdayRow(List<String> labels) {
-    return Row(
-      children: List.generate(7, (i) {
-        return Expanded(
-          child: Container(
-            height: Dimen.cellSmall,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: const Color(0xFFE3F2FD),
-              border: Border.all(color: Colors.grey.shade300),
-            ),
-            child: Text(
-              labels[i],
-              style: TextStyle(
-                fontSize: Dimen.fSmall,
-                fontWeight: FontWeight.bold,
-                color: i == 0 ? Colors.red : Colors.black,
-              ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
-
-  // Widget _buildMonthNavigation(BuildContext context) {
-  //   List<int> yearRange = List.generate(
-  //     lastYear - firstYear + 1,
-  //     (index) => firstYear + index,
-  //   );
-  //   List<String> monthRange =
-  //       List.generate(12, (index) => getLocalizedMonthName(loc, index + 1));
-  //
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       SizedBox(
-  //         width: 80,
-  //         child: buildDropdownM<String>(
-  //           hint: 'Month',
-  //           value: getLocalizedMonthName(loc, selectedDate.month),
-  //           items: monthRange,
-  //           onChanged: (monthName) {
-  //             if (monthName != null) {
-  //               // Find the month number from the localized name
-  //               int monthNumber =
-  //                   monthRange.indexWhere((name) => name == monthName) + 1;
-  //               if (monthNumber > 0) {
-  //                 onDateSelected(DateTime(selectedDate.year, monthNumber, 1));
-  //               }
-  //             }
-  //           },
-  //         ),
-  //       ),
-  //       const SizedBox(width: 10),
-  //       SizedBox(
-  //         width: 80,
-  //         height: Dimen.cellSmall,
-  //         child: buildDropdown<int>(
-  //           hint: 'Year',
-  //           value: selectedDate.year,
-  //           items: yearRange,
-  //           onChanged: (year) {
-  //             if (year != null) {
-  //               onDateSelected(DateTime(year, selectedDate.month, 1));
-  //             }
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Widget _buildMonthNavigation(BuildContext context) {
-    List<int> yearRange = List.generate(
-      lastYear - firstYear + 1,
-      (index) => firstYear + index,
-    );
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Row 1: Year dropdown (aligned left)
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              buildDropdown<int>(
-                hint: 'Year',
-                value: selectedDate.year,
-                items: yearRange,
-                onChanged: (year) {
-                  if (year != null) {
-                    onDateSelected(DateTime(year, selectedDate.month, 1));
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-        //const Spacer(),
-
-        // Row 2: Month navigation with arrows and month name + year
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Left arrow
-            _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-
-            const SizedBox(width: 16),
-
-            // Month name with year (flexible with ellipsis)
-            Flexible(
-              child: Text(
-                getLocalizedMonthName(loc, selectedDate.month),
-                style: const TextStyle(
-                  fontSize: Dimen.fBig,
-                  fontWeight: FontWeight.bold,
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                softWrap: false,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text('${selectedDate.year}',
-                style: const TextStyle(
-                  fontSize: Dimen.fBig,
-                  fontWeight: FontWeight.bold,
-                )),
-
-            const SizedBox(width: 16),
-
-            // Right arrow
-            _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
-          ],
-        ),
-      ],
-    );
-  }
-
-  void _changeMonth(int offset) {
-    final newDate = DateTime(selectedDate.year, selectedDate.month + offset, 1);
-    if (newDate.year < firstYear || newDate.year > lastYear) return;
-    onDateSelected(newDate);
-  }
-
-  Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
+  Widget _buildNavButton(IconData icon, VoidCallback onPressed) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onPressed,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(16),
         child: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Icon(icon, size: 20, color: Colors.black87),
+          padding: const EdgeInsets.all(2),
+          child: Icon(icon, size: 20, color: Colors.grey.shade700),
         ),
       ),
     );
   }
 
-  /*
-  Widget _buildMonthNavigation(BuildContext context) {
-    List<int> yearRange = List.generate(
-      lastYear - firstYear + 1,
-          (index) => firstYear + index,
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child:
-      Column(
-        children: [
-          //year drop down
-          SizedBox(
-            width: 70,
-            height: Dimen.cellSmall,
-            child: buildDropdown<int>(
-              hint: 'Year',
-              value: selectedDate.year,
-              items: yearRange,
-              onChanged: (year) {
-                if (year != null) {
-                  onDateSelected(DateTime(year, selectedDate.month, 1));
-                }
-              },
+  Widget _buildWeekdayRow(List<String> labels) {
+    return Container(
+      color: Colors.grey.shade50,
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: labels.map((label) {
+          return Expanded(
+            child: Center(
+              child: Text(
+                label,
+                style: GoogleFonts.poppins(
+                  fontSize: Dimen.fSmall,
+                  fontWeight: FontWeight.w600,
+                  color: label == widget.loc.sun
+                      ? _isSunday
+                      : Colors.grey.shade600,
+                  letterSpacing: 0.3,
+                ),
+              ),
             ),
-          ),
-          // Left arrow group
-          Row(
-            children: [
-              SizedBox(
-                width: 50, // fixed compact width
-                child: Row(
-                 // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _arrowBtn(Icons.keyboard_double_arrow_left, () => _changeYear(-1)),
-                    _arrowBtn(Icons.chevron_left, () => _changeMonth(-1)),
-                  ],
-                ),
-              ),
-              // Middle: month + year
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    //month name
-                    Text(
-                      getLocalizedMonthName(loc, selectedDate.month),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                      overflow: TextOverflow.visible,
-                      style: const TextStyle(
-                        fontSize: Dimen.fBig,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Right arrow group
-              SizedBox(
-                width: 40, // fixed compact width
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _arrowBtn(Icons.chevron_right, () => _changeMonth(1)),
-                    _arrowBtn(Icons.keyboard_double_arrow_right, () => _changeYear(1)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+          );
+        }).toList(),
       ),
     );
   }
-
-  void _changeMonth(int offset) {
-    final newDate = DateTime(selectedDate.year, selectedDate.month + offset, 1);
-    if (newDate.year < firstYear || newDate.year > lastYear) return;
-    onDateSelected(newDate);
-  }
-
-  void _changeYear(int offset) {
-    final newDate = DateTime(
-        selectedDate.year + offset, selectedDate.month, selectedDate.day);
-    if (newDate.year < firstYear || newDate.year > lastYear) return;
-    onDateSelected(newDate);
-  }
-
-  Widget _arrowBtn(IconData icon, VoidCallback onPressed) {
-    return IconButton(
-      iconSize: 16,
-      padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(),
-      onPressed: onPressed,
-      icon: Container(
-        //padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(2),
-        ),
-        child: Icon(icon, size: 13, color: Colors.black),
-      ),
-    );
-  }
-*/
 }

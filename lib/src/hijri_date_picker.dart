@@ -1,31 +1,35 @@
 import 'dart:io';
 
-import 'package:calendar_picker_ghe/src/utils/date_converter.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../src/service/app_localizations.dart';
-import './utils/hijri_calender_table.dart';
+import '../src/utils/date_converter.dart';
+import '../src/utils/hijri_calender_table.dart';
 import '../src/utils/dimension.dart';
 
 Future<Hijri?> hijriDatePicker({
   required BuildContext context,
-  required int intialYear,
+  required int initialYear,
   required int firstYear,
   required int lastYear,
   String locale = 'en',
 }) async {
-  Hijri tempSelected = Hijri(year: intialYear, month: 1, day: 1);
+  Hijri tempSelected = Hijri(year: initialYear, month: 1, day: 1);
   final loc = AppLocalizations(Locale(locale));
+
   return showDialog<Hijri>(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        contentPadding: EdgeInsets.all(
-          Dimen.isSmall(context) ? Dimen.spacingSmall : Dimen.spacingLarge,
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(28),
         ),
-        content: SizedBox(
+        child: Container(
           width: Platform.isAndroid
-              ? MediaQuery.of(context).size.width * 0.85
-              : 280,
+              ? MediaQuery.of(context).size.width * 0.9
+              : 400,
+          constraints: const BoxConstraints(maxWidth: 450),
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
@@ -40,22 +44,55 @@ Future<Hijri?> hijriDatePicker({
                     },
                     loc: loc,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, null),
-                        child: Text(loc.cancel),
-                      ),
-                      const SizedBox(width: Dimen.spacingMedium),
-                      ElevatedButton(
-                        onPressed: () => Navigator.pop(context, tempSelected),
-                        child: Text(loc.ok),
-                      ),
-                      const SizedBox(width: Dimen.spacingMedium),
-                    ],
+                  const Divider(height: 1, thickness: 1, color: Colors.grey),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, null),
+                          style: TextButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                          ),
+                          child: Text(
+                            loc.cancel,
+                            style: GoogleFonts.poppins(
+                              fontSize: Dimen.fMedium,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: Dimen.spacingMedium),
+                        ElevatedButton(
+                          onPressed: () => Navigator.pop(context, tempSelected),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 8,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            loc.ok,
+                            style: GoogleFonts.poppins(
+                              fontSize: Dimen.fMedium,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: Dimen.spacingMedium),
                 ],
               );
             },
