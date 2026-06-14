@@ -33,8 +33,6 @@ class CalendarTableHijriState extends State<CalendarTableHijri>
 
   static const Color _isFriday =
       Color(0xFFE74C3C); // Friday is holy day in Islam
-  static const Color _todayColor = Color(0xFF3498DB);
-  static const Color _selectedColor = Color(0xFF2C3E50);
 
   @override
   void initState() {
@@ -213,14 +211,14 @@ class CalendarTableHijriState extends State<CalendarTableHijri>
               shape: BoxShape.circle,
               boxShadow: isSelected || isTodayDate
                   ? [
-                      BoxShadow(
-                        color: (isSelected
-                                ? const Color(0xFF2C3E50)
-                                : const Color(0xFF3498DB))
-                            .withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      )
+                BoxShadow(
+                  color: (isSelected
+                      ? const Color(0xFF2C3E50)
+                      : const Color(0xFF3498DB))
+                      .withValues(alpha: 0.3),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                )
                     ]
                   : null,
             ),
@@ -363,7 +361,7 @@ class CalendarTableHijriState extends State<CalendarTableHijri>
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.2),
+                color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(

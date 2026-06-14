@@ -31,8 +31,6 @@ class CalendarTableGregorianState extends State<CalendarTableGregorian>
   late Animation<double> _scaleAnimation;
 
   static const Color _isSunday = Color(0xFFE74C3C);
-  static const Color _todayColor = Color(0xFF3498DB);
-  static const Color _selectedColor = Color(0xFF2C3E50);
 
   @override
   void initState() {
@@ -209,7 +207,7 @@ class CalendarTableGregorianState extends State<CalendarTableGregorian>
                         color: (isSelected
                                 ? const Color(0xFF2C3E50)
                                 : const Color(0xFF3498DB))
-                            .withOpacity(0.3),
+                            .withValues(alpha: 0.3),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       )
