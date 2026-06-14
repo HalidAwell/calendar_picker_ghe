@@ -211,14 +211,14 @@ class CalendarTableHijriState extends State<CalendarTableHijri>
               shape: BoxShape.circle,
               boxShadow: isSelected || isTodayDate
                   ? [
-                BoxShadow(
-                  color: (isSelected
-                      ? const Color(0xFF2C3E50)
-                      : const Color(0xFF3498DB))
-                      .withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                )
+                      BoxShadow(
+                        color: (isSelected
+                                ? const Color(0xFF2C3E50)
+                                : const Color(0xFF3498DB))
+                            .withValues(alpha: 0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      )
                     ]
                   : null,
             ),
@@ -419,7 +419,7 @@ class CalendarTableHijriState extends State<CalendarTableHijri>
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
         children: labels.asMap().entries.map((entry) {
-          final index = entry.key;
+          //final index = entry.key;
           final label = entry.value;
           // Friday is index 5 (0-based: Sun=0, Mon=1, Tue=2, Wed=3, Thu=4, Fri=5, Sat=6)
           final isFriday = label == widget.loc.fri;
